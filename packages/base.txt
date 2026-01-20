@@ -8,6 +8,7 @@ dunst
 ghostty
 firefox
 fuzzel
+zed
 intel-media-driver
 libva-intel-driver
 vulkan-intel

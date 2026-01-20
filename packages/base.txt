@@ -9,7 +9,6 @@ ghostty
 firefox
 fuzzel
 zed
-zen-browser-bin
 thunar
 brightnessctl
 btop

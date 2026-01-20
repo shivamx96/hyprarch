@@ -1,3 +1,4 @@
 hyprland-git
 hyprlock-git
 hypridle-git
+zen-browser-bin

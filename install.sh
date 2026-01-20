@@ -29,14 +29,16 @@ echo "Detected host: $HOST"
 
 # Install packages
 echo "Installing packages..."
-pacman -S --noconfirm - < "$REPO_DIR/packages/base.txt"
+pacman -S --noconfirm - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed (may have already installed)"
 
 if command -v yay &> /dev/null || command -v paru &> /dev/null; then
     AUR_HELPER=$(command -v paru || command -v yay)
-    $AUR_HELPER -S --noconfirm - < "$REPO_DIR/packages/aur.txt"
+    $AUR_HELPER -S --noconfirm - < "$REPO_DIR/packages/aur.txt" || echo "Warning: AUR install failed"
 else
     echo "Warning: No AUR helper found. Install yay or paru manually."
 fi
+
+echo "Package installation step complete."
 
 # Create directories
 mkdir -p "$DOTS_DIR"

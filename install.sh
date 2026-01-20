@@ -44,11 +44,16 @@ mkdir -p "$CONFIG_DIR"
 
 # Copy defaults
 echo "Setting up defaults..."
-cp -r "$REPO_DIR/defaults/hypr" "$DOTS_DIR/"
-cp -r "$REPO_DIR/defaults/waybar" "$DOTS_DIR/"
-cp -r "$REPO_DIR/defaults/dunst" "$DOTS_DIR/"
-cp -r "$REPO_DIR/defaults/ghostty" "$DOTS_DIR/"
-cp -r "$REPO_DIR/defaults/shell" "$DOTS_DIR/"
+echo "Copying from: $REPO_DIR/defaults"
+echo "Copying to: $DOTS_DIR"
+
+cp -rv "$REPO_DIR/defaults/hypr" "$DOTS_DIR/" || { echo "Failed to copy hypr"; exit 1; }
+cp -rv "$REPO_DIR/defaults/waybar" "$DOTS_DIR/" || { echo "Failed to copy waybar"; exit 1; }
+cp -rv "$REPO_DIR/defaults/dunst" "$DOTS_DIR/" || { echo "Failed to copy dunst"; exit 1; }
+cp -rv "$REPO_DIR/defaults/ghostty" "$DOTS_DIR/" || { echo "Failed to copy ghostty"; exit 1; }
+cp -rv "$REPO_DIR/defaults/shell" "$DOTS_DIR/" || { echo "Failed to copy shell"; exit 1; }
+
+ls -la "$DOTS_DIR"
 
 # Fix ownership if run with sudo
 if [ "$SUDO_USER" ]; then

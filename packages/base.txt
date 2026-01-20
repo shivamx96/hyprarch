@@ -9,6 +9,8 @@ ghostty
 firefox
 fuzzel
 zed
+zen-browser
+thunar
 pipewire
 pipewire-alsa
 pipewire-pulse

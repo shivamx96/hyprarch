@@ -1,0 +1,3 @@
+hyprland-git
+hyprlock-git
+hypridle-git

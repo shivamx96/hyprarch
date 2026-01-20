@@ -1,0 +1,26 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["battery", "network"],
+    "hyprland/workspaces": {
+        "format": "{name}"
+    },
+    "clock": {
+        "format": "{:%H:%M}"
+    },
+    "battery": {
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        "format": "{ifname}",
+        "format-disconnected": "offline"
+    }
+}

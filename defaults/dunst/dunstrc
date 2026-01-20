@@ -1,0 +1,27 @@
+[global]
+monitor = 0
+geometry = "350x60-15+50"
+transparency = 10
+separator_height = 1
+padding = 8
+horizontal_padding = 8
+text_icon_padding = 10
+frame_width = 1
+frame_color = "#45475a"
+separator_color = "#45475a"
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+font = monospace 10
+line_height = 3
+
+[urgency_low]
+background = "#1e1e2e"
+foreground = "#6c7086"
+
+[urgency_normal]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[urgency_critical]
+background = "#1e1e2e"
+foreground = "#f38ba8"

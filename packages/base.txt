@@ -1,0 +1,15 @@
+hyprland
+hyprcursor
+hyprlock
+hypridle
+xdg-desktop-portal-hyprland
+waybar
+dunst
+ghostty
+firefox
+fuzzel
+intel-media-driver
+libva-intel-driver
+vulkan-intel
+base-devel
+git

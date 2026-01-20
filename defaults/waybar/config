@@ -1,26 +1,99 @@
 {
-    "layer": "top",
-    "position": "top",
-    "height": 32,
-    "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["battery", "network"],
-    "hyprland/workspaces": {
-        "format": "{name}"
-    },
-    "clock": {
-        "format": "{:%H:%M}"
-    },
-    "battery": {
-        "states": {
-            "warning": 20,
-            "critical": 10
-        },
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "network": {
-        "format": "{ifname}",
-        "format-disconnected": "offline"
+  "layer": "top",
+  "position": "top",
+  "height": 36,
+  "spacing": 0,
+  "modules-left": ["custom/arch", "hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "backlight",
+    "pulseaudio",
+    "cpu",
+    "memory",
+    "network",
+    "battery",
+    "custom/power"
+  ],
+
+  "custom/arch": {
+    "format": "󰣇",
+    "on-click": "ghostty -e bash -c 'fastfetch; read -p \"Press Enter to close...\"'",
+    "tooltip": false
+  },
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "persistent-workspaces": {}
+  },
+
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 50,
+    "rewrite": {
+      "(.*) - Mozilla Firefox": "🌐 $1",
+      "(.*) - Zed": "󰘦 $1"
     }
+  },
+
+  "clock": {
+    "format": "{:%I:%M %p}",
+    "format-alt": "{:%Y-%m-%d}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon} {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "on-scroll-up": "brightnessctl set 1%-",
+    "on-scroll-down": "brightnessctl set 1%+"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-muted": "",
+    "format-icons": ["", " ", " "],
+    "scroll-step": 2,
+    "on-click": "pavucontrol",
+    "ignored-sinks": ["Easy Effects Sink"]
+  },
+
+  "cpu": {
+    "format": "   {usage}%",
+    "on-click": "ghostty -e bash -c 'btop'",
+    "interval": 1
+  },
+
+  "memory": {
+    "format": "   {}%",
+    "on-click": "ghostty -e bash -c 'btop'",
+    "interval": 1,
+    "tooltip-format": "Used: {used}GB\nTotal: {total}GB"
+  },
+
+  "network": {
+    "format-wifi": "   {bandwidthTotalBytes}",
+    "format-ethernet": "   {bandwidthTotalBytes}",
+    "format-disconnected": "睊",
+    "tooltip-format-wifi": "IP: {ipaddr}\nNetwork: {essid}\nUplink: {bandwidthUpBytes}\nDownlink: {bandwidthDownBytes}",
+    "tooltip-format-ethernet": "IP: {ipaddr}\nNetwork: Ethernet\nUplink: {bandwidthUpBytes}\nDownlink: {bandwidthDownBytes}"
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+
+  "custom/power": {
+    "format": "",
+    "on-click": "~/.config/waybar/power-menu.sh",
+    "tooltip": false
+  }
 }

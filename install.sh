@@ -82,6 +82,8 @@ fi
 # Symlink waybar (user can break symlink to customize)
 ln -sf "$DOTS_DIR/waybar/config" "$CONFIG_DIR/waybar/config" 2>/dev/null || true
 ln -sf "$DOTS_DIR/waybar/style.css" "$CONFIG_DIR/waybar/style.css" 2>/dev/null || true
+chmod +x "$DOTS_DIR/waybar/power-menu.sh"
+ln -sf "$DOTS_DIR/waybar/power-menu.sh" "$CONFIG_DIR/waybar/power-menu.sh" 2>/dev/null || true
 
 # Symlink dunst
 ln -sf "$DOTS_DIR/dunst/dunstrc" "$CONFIG_DIR/dunst/dunstrc" 2>/dev/null || true

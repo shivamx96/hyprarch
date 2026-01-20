@@ -11,6 +11,9 @@ fuzzel
 zed
 zen-browser
 thunar
+brightnessctl
+btop
+fastfetch
 pipewire
 pipewire-alsa
 pipewire-pulse

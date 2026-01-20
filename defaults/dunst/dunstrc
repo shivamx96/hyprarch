@@ -1,21 +1,20 @@
 [global]
 monitor = 0
-geometry = "300x80+0-50"
-alignment = center
-origin = bottom-center
-transparency = 5
-separator_height = 0
-padding = 12
-horizontal_padding = 16
-text_icon_padding = 8
-frame_width = 2
-frame_color = "#8caaee"
-separator_color = "#414559"
-background = "#303446"
-foreground = "#c6d0f5"
-font = Inter 12
-line_height = 2
-corner_radius = 8
+geometry = "400x100-15+15"
+alignment = right
+origin = top-right
+transparency = 10
+separator_height = 1
+padding = 8
+horizontal_padding = 8
+text_icon_padding = 10
+frame_width = 1
+frame_color = "#45475a"
+separator_color = "#45475a"
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+font = Inter 10
+line_height = 3
 
 [urgency_low]
 background = "#1e1e2e"
@@ -28,3 +27,8 @@ foreground = "#cdd6f4"
 [urgency_critical]
 background = "#1e1e2e"
 foreground = "#f38ba8"
+
+# Ignore OSD popups (handled by notify-osd)
+[hyprarch-osd]
+appname = hyprarch
+skip_display = true

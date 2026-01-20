@@ -1,3 +1,4 @@
 zen-browser-bin
 inter-font
 ttf-jetbrains-mono-nerd
+notify-osd

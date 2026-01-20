@@ -6,9 +6,7 @@ MAX=$(brightnessctl max)
 PERCENT=$((BRIGHTNESS * 100 / MAX))
 
 # Create brightness bar icon
-if [ "$PERCENT" -eq 0 ]; then
-    ICON="󰃞"
-elif [ "$PERCENT" -lt 33 ]; then
+if [ "$PERCENT" -lt 33 ]; then
     ICON="󰃞"
 elif [ "$PERCENT" -lt 66 ]; then
     ICON="󰃟"
@@ -16,11 +14,11 @@ else
     ICON="󰃠"
 fi
 
-# Create visual bar
-BARS=$((PERCENT / 10))
-EMPTY=$((10 - BARS))
+# Create visual bar (20 chars max for good fit)
+BARS=$((PERCENT / 5))
+EMPTY=$((20 - BARS))
 BAR=$(printf '█%.0s' $(seq 1 $BARS))$(printf '░%.0s' $(seq 1 $EMPTY))
-TEXT="$ICON $BAR $PERCENT%"
+DISPLAY="$BAR\n$PERCENT%"
 
-# Show notification with 1.5 second timeout
-notify-send -t 1500 "$TEXT" -h string:x-canonical-private-synchronous:brightness
+# Show notification with 1.2 second timeout
+notify-send -t 1200 "$ICON Brightness" "$DISPLAY" -h string:x-canonical-private-synchronous:brightness

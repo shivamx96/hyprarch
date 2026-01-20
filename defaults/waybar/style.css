@@ -1,39 +1,16 @@
-/* Catppuccin Mocha color palette */
-@define-color rosewater #f2d5cf;
-@define-color flamingo #eebebe;
-@define-color pink #f4b8e4;
-@define-color mauve #ca9ee6;
-@define-color red #e78284;
-@define-color maroon #ea999c;
-@define-color peach #ef9f76;
-@define-color yellow #e5c890;
-@define-color green #a6d189;
-@define-color teal #81c8be;
-@define-color sky #99d1db;
-@define-color sapphire #85c1dc;
-@define-color blue #8caaee;
-@define-color lavender #babbf1;
-@define-color text #c6d0f5;
-@define-color subtext1 #b5bfe2;
-@define-color subtext0 #a5adce;
-@define-color overlay2 #949cbb;
-@define-color overlay1 #838ba7;
-@define-color overlay0 #737994;
-@define-color surface2 #626880;
-@define-color surface1 #51576d;
-@define-color surface0 #414559;
-@define-color base #303446;
-@define-color mantle #292c3c;
-@define-color crust #232634;
+@define-color blue-accent #8caaee;
+@define-color darker-blue #2B4B6B;
+@define-color bg-color rgba(17, 24, 39, 0.5);
+@define-color text #E5E9F0;
 
 * {
     border: none;
     border-radius: 0;
-    margin: 0;
-    padding: 0;
-    font-family: "Inter", "JetBrains Mono", sans-serif;
-    font-size: 14px;
-    font-weight: bold;
+    margin-top: 2;
+    margin-bottom: 2;
+    font-family: "Raleway", sans-serif;
+    font-size: 16px;
+    font-weight: normal;
     min-height: 0;
     color: @text;
 }
@@ -48,106 +25,95 @@ window#waybar {
 #window,
 #network,
 #backlight,
+#wireplumber,
 #pulseaudio,
 #cpu,
 #memory,
-#battery,
-#custom-power {
-    background: rgba(17, 24, 39, 0.5);
+#custom-power,
+#battery {
+    background: @bg-color;
     padding: 0 12px;
     margin: 1px 1px;
-    border: 1px solid @blue;
+    border: 1px solid @blue-accent;
 }
 
-/* Module groups spacing */
+/* Module groups */
 .modules-left,
 .modules-center,
 .modules-right {
     margin: 2px 6px;
 }
 
-/* Custom icons */
-#custom-arch {
-    font-size: 18px;
-    color: @blue;
-    padding: 0 12px;
-    border-radius: 10px 0 0 10px;
-}
-
-/* Workspaces */
-#workspaces {
-    background: @surface0;
-}
-
+/* Workspace styling */
 #workspaces button {
-    padding: 0 8px;
-    margin: 0 2px;
-    color: @overlay1;
+    padding: 0 6px;
+    color: @text;
     border-bottom: 2px solid transparent;
-    background: transparent;
 }
 
 #workspaces button.active {
-    color: @blue;
-    border-bottom: 2px solid @blue;
-    background: #2B4B6B;
+    color: @blue-accent;
+    border-bottom: 2px solid @blue-accent;
+    background: @darker-blue;
 }
 
 #workspaces button:hover {
-    color: @blue;
-    background: #2B4B6B;
+    box-shadow: inherit;
+    color: @blue-accent;
+    background: @darker-blue;
 }
 
-/* Window title */
-#window {
-    color: @teal;
+/* Custom module styling */
+#custom-arch,
+#custom-power {
+    font-size: 18px;
 }
 
-/* Clock */
 #clock {
-    color: @yellow;
+    /* color: @blue-accent; */
     font-weight: bold;
-    border-radius: 10px;
 }
 
 /* System metrics */
-#backlight {
-    color: @peach;
-}
-
-#pulseaudio {
-    color: @pink;
-}
-
-#cpu {
-    color: @peach;
-}
-
-#memory {
-    color: @sapphire;
-}
-
-#network {
-    color: @teal;
-}
-
-/* Battery states */
+#cpu,
+#memory,
 #battery {
-    color: @green;
+    border-right: none;
+}
+
+#backlight,
+#wireplumber {
+    background: @bg-color;
+    /* border-radius: 10px; */
+    /* margin-right: 8px; */
+    padding: 0 12px;
 }
 
 #battery.warning {
-    color: @yellow;
+    color: #ffb347;
 }
 
 #battery.critical {
-    color: @red;
+    color: #ff6961;
 }
 
-/* Power menu */
-#custom-power {
-    font-size: 16px;
-    color: @red;
-    padding: 0 12px;
+/* Group rounded corners */
+.modules-left > widget:first-child > * {
+    border-radius: 10px 0 0 10px;
+}
+
+.modules-left > widget:last-child > * {
     border-radius: 0 10px 10px 0;
+}
+
+.modules-right > widget:first-child > * {
+    border-radius: 10px 0 0 10px;
+}
+
+.modules-right > widget:last-child > * {
+    border-radius: 0 10px 10px 0;
+}
+
+.modules-center > widget:first-child > * {
+    border-radius: 10px;
 }

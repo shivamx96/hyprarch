@@ -9,6 +9,11 @@ ghostty
 firefox
 fuzzel
 zed
+pipewire
+pipewire-alsa
+pipewire-pulse
+wireplumber
+pavucontrol
 intel-media-driver
 libva-intel-driver
 vulkan-intel

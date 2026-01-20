@@ -8,8 +8,8 @@
     border-radius: 0;
     margin-top: 2;
     margin-bottom: 2;
-    font-family: "Raleway", sans-serif;
-    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
     font-weight: normal;
     min-height: 0;
     color: @text;
@@ -67,11 +67,6 @@ window#waybar {
 #custom-arch,
 #custom-power {
     font-size: 18px;
-}
-
-#clock {
-    /* color: @blue-accent; */
-    font-weight: bold;
 }
 
 /* System metrics */

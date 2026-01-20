@@ -45,7 +45,7 @@
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon} {percent}%",
-    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "format-icons": ["󰃞 ", "󰃟 ", "󰃠 "],
     "on-scroll-up": "brightnessctl set 1%-",
     "on-scroll-down": "brightnessctl set 1%+"
   },
@@ -53,29 +53,29 @@
   "pulseaudio": {
     "format": "{icon}  {volume}%",
     "format-bluetooth": "{icon} {volume}%",
-    "format-muted": "",
-    "format-icons": ["", " ", " "],
+    "format-muted": " Muted",
+    "format-icons": ["", " ", " "],
     "scroll-step": 2,
     "on-click": "pavucontrol",
     "ignored-sinks": ["Easy Effects Sink"]
   },
 
   "cpu": {
-    "format": "   {usage}%",
+    "format": " {usage}%",
     "on-click": "ghostty -e bash -c 'btop'",
     "interval": 1
   },
 
   "memory": {
-    "format": "   {}%",
+    "format": " {}%",
     "on-click": "ghostty -e bash -c 'btop'",
     "interval": 1,
     "tooltip-format": "Used: {used}GB\nTotal: {total}GB"
   },
 
   "network": {
-    "format-wifi": "   {bandwidthTotalBytes}",
-    "format-ethernet": "   {bandwidthTotalBytes}",
+    "format-wifi": "   {bandwidthTotalBytes}",
+    "format-ethernet": "   {bandwidthTotalBytes}",
     "format-disconnected": "睊",
     "tooltip-format-wifi": "IP: {ipaddr}\nNetwork: {essid}\nUplink: {bandwidthUpBytes}\nDownlink: {bandwidthDownBytes}",
     "tooltip-format-ethernet": "IP: {ipaddr}\nNetwork: Ethernet\nUplink: {bandwidthUpBytes}\nDownlink: {bandwidthDownBytes}"
@@ -93,7 +93,7 @@
   },
 
   "custom/power": {
-    "format": "",
+    "format": "⏻",
     "on-click": "~/.config/waybar/power-menu.sh",
     "tooltip": false
   }

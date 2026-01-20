@@ -2,8 +2,16 @@
 set -e
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DOTS_DIR="$HOME/.local/share/hyprarch"
-CONFIG_DIR="$HOME/.config"
+
+# Preserve user's home when run with sudo
+if [ "$SUDO_USER" ]; then
+    USER_HOME="/home/$SUDO_USER"
+else
+    USER_HOME="$HOME"
+fi
+
+DOTS_DIR="$USER_HOME/.local/share/hyprarch"
+CONFIG_DIR="$USER_HOME/.config"
 
 # Detect host
 detect_host() {
@@ -41,6 +49,11 @@ cp -r "$REPO_DIR/defaults/waybar" "$DOTS_DIR/"
 cp -r "$REPO_DIR/defaults/dunst" "$DOTS_DIR/"
 cp -r "$REPO_DIR/defaults/ghostty" "$DOTS_DIR/"
 cp -r "$REPO_DIR/defaults/shell" "$DOTS_DIR/"
+
+# Fix ownership if run with sudo
+if [ "$SUDO_USER" ]; then
+    chown -R "$SUDO_USER:$SUDO_USER" "$DOTS_DIR" "$CONFIG_DIR"
+fi
 
 # Create user config structure
 echo "Generating user configs..."

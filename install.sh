@@ -27,15 +27,28 @@ detect_host() {
 HOST=$(detect_host)
 echo "Detected host: $HOST"
 
+# Install AUR helper if not present
+if ! command -v yay &> /dev/null && ! command -v paru &> /dev/null; then
+    echo "Installing paru (AUR helper)..."
+    sudo pacman -S --noconfirm base-devel
+    cd /tmp
+    git clone https://aur.archlinux.org/paru.git || true
+    cd paru
+    makepkg -si --noconfirm
+    cd - > /dev/null
+fi
+
 # Install packages
 echo "Installing packages..."
-pacman -S --noconfirm - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed (may have already installed)"
+sudo pacman -S --noconfirm - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed"
 
-if command -v yay &> /dev/null || command -v paru &> /dev/null; then
-    AUR_HELPER=$(command -v paru || command -v yay)
+AUR_HELPER=$(command -v paru || command -v yay)
+if [ -n "$AUR_HELPER" ]; then
+    echo "Installing AUR packages..."
     $AUR_HELPER -S --noconfirm - < "$REPO_DIR/packages/aur.txt" || echo "Warning: AUR install failed"
 else
-    echo "Warning: No AUR helper found. Install yay or paru manually."
+    echo "Error: No AUR helper available."
+    exit 1
 fi
 
 echo "Package installation step complete."

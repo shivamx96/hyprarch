@@ -1,4 +1,3 @@
-hyprland-git
-hyprlock-git
-hypridle-git
 zen-browser-bin
+ttf-raleway
+ttf-jetbrains-mono-nerd

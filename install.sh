@@ -32,17 +32,18 @@ if ! command -v yay &> /dev/null && ! command -v paru &> /dev/null; then
     echo "Installing paru (AUR helper)..."
     pacman -S --noconfirm base-devel
     rm -rf /tmp/paru
-    sudo -u "$SUDO_USER" bash -c 'cd /tmp && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si --noconfirm'
+    sudo -u "$SUDO_USER" bash -c 'cd /tmp && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si'
 fi
 
-# Install packages
+# Install packages (we're already root from sudo ./install.sh)
 echo "Installing packages..."
-sudo pacman -S --noconfirm - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed"
+pacman -S - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed"
 
+# Install AUR packages as user (AUR helpers must run as non-root)
 AUR_HELPER=$(command -v paru || command -v yay)
 if [ -n "$AUR_HELPER" ]; then
     echo "Installing AUR packages..."
-    $AUR_HELPER -S --noconfirm - < "$REPO_DIR/packages/aur.txt" || echo "Warning: AUR install failed"
+    sudo -u "$SUDO_USER" bash -c "$AUR_HELPER -S - < '$REPO_DIR/packages/aur.txt'" || echo "Warning: AUR install failed"
 else
     echo "Error: No AUR helper available."
     exit 1

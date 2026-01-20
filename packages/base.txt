@@ -18,6 +18,8 @@ pipewire-alsa
 pipewire-pulse
 wireplumber
 pavucontrol
+sof-firmware
+alsa-ucm-conf
 ttf-raleway
 ttf-jetbrains-mono-nerd
 noto-fonts

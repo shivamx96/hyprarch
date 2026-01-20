@@ -18,9 +18,10 @@ pipewire-alsa
 pipewire-pulse
 wireplumber
 pavucontrol
+ttf-raleway
+ttf-jetbrains-mono-nerd
 noto-fonts
 noto-fonts-emoji
-noto-fonts-nerd
 intel-media-driver
 libva-intel-driver
 vulkan-intel

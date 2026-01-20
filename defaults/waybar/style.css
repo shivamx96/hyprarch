@@ -1,71 +1,153 @@
+/* Catppuccin Mocha color palette */
+@define-color rosewater #f2d5cf;
+@define-color flamingo #eebebe;
+@define-color pink #f4b8e4;
+@define-color mauve #ca9ee6;
+@define-color red #e78284;
+@define-color maroon #ea999c;
+@define-color peach #ef9f76;
+@define-color yellow #e5c890;
+@define-color green #a6d189;
+@define-color teal #81c8be;
+@define-color sky #99d1db;
+@define-color sapphire #85c1dc;
+@define-color blue #8caaee;
+@define-color lavender #babbf1;
+@define-color text #c6d0f5;
+@define-color subtext1 #b5bfe2;
+@define-color subtext0 #a5adce;
+@define-color overlay2 #949cbb;
+@define-color overlay1 #838ba7;
+@define-color overlay0 #737994;
+@define-color surface2 #626880;
+@define-color surface1 #51576d;
+@define-color surface0 #414559;
+@define-color base #303446;
+@define-color mantle #292c3c;
+@define-color crust #232634;
+
 * {
-    font-family: "Noto Sans Nerd Font", "Noto Sans", monospace;
-    font-size: 13px;
-    color: #cdd6f4;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans Nerd Font", "Raleway", monospace;
+    font-size: 14px;
+    font-weight: bold;
+    min-height: 0;
+    color: @text;
 }
 
-window {
-    background-color: #1e1e2e;
-    border-bottom: 1px solid #45475a;
-}
-
-#custom-arch {
-    padding: 0 12px;
-    color: #89b4fa;
-}
-
-#workspaces {
-    padding: 0 8px;
-}
-
-#workspaces button {
-    padding: 0 8px;
-    margin: 0 4px;
-    color: #6c7086;
+window#waybar {
     background: transparent;
 }
 
-#workspaces button.active {
-    color: #a6e3a1;
-    border-bottom: 2px solid #a6e3a1;
-}
-
-#window {
-    padding: 0 12px;
-    color: #94e2d5;
-}
-
-#clock {
-    padding: 0 12px;
-    color: #f9e2af;
-}
-
+#custom-arch,
+#clock,
+#workspaces,
+#window,
+#network,
 #backlight,
 #pulseaudio,
 #cpu,
 #memory,
-#network,
 #battery,
 #custom-power {
+    background: rgba(17, 24, 39, 0.5);
     padding: 0 12px;
+    margin: 1px 1px;
+    border: 1px solid @blue;
+}
+
+/* Module groups spacing */
+.modules-left,
+.modules-center,
+.modules-right {
+    margin: 2px 6px;
+}
+
+/* Custom icons */
+#custom-arch {
+    font-size: 18px;
+    color: @blue;
+    padding: 0 12px;
+    border-radius: 10px 0 0 10px;
+}
+
+/* Workspaces */
+#workspaces {
+    background: @surface0;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    margin: 0 2px;
+    color: @overlay1;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+}
+
+#workspaces button.active {
+    color: @blue;
+    border-bottom: 2px solid @blue;
+    background: #2B4B6B;
+}
+
+#workspaces button:hover {
+    color: @blue;
+    background: #2B4B6B;
+}
+
+/* Window title */
+#window {
+    color: @teal;
+}
+
+/* Clock */
+#clock {
+    color: @yellow;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+/* System metrics */
+#backlight {
+    color: @peach;
 }
 
 #pulseaudio {
-    color: #f5c2e7;
+    color: @pink;
 }
 
 #cpu {
-    color: #fab387;
+    color: @peach;
 }
 
 #memory {
-    color: #89b4fa;
+    color: @sapphire;
 }
 
 #network {
-    color: #94e2d5;
+    color: @teal;
 }
 
+/* Battery states */
 #battery {
-    color: #a6e3a1;
+    color: @green;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.critical {
+    color: @red;
+}
+
+/* Power menu */
+#custom-power {
+    font-size: 16px;
+    color: @red;
+    padding: 0 12px;
+    border-radius: 0 10px 10px 0;
 }

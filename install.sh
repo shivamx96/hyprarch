@@ -71,7 +71,8 @@ ls -la "$DOTS_DIR"
 
 # Fix ownership if run with sudo
 if [ "$SUDO_USER" ]; then
-    chown -R "$SUDO_USER:$SUDO_USER" "$DOTS_DIR" "$CONFIG_DIR"
+    chown -R "$SUDO_USER:$SUDO_USER" "$DOTS_DIR"
+    chown -R "$SUDO_USER:$SUDO_USER" "$CONFIG_DIR/hypr" "$CONFIG_DIR/waybar" "$CONFIG_DIR/dunst" "$CONFIG_DIR/ghostty" "$CONFIG_DIR/fontconfig" 2>/dev/null || true
 fi
 
 # Create user config structure
@@ -88,7 +89,7 @@ source = ~/.local/share/hyprarch/hypr/env.conf
 source = ~/.config/hypr/env.conf
 EOF
 
-# Generate host-specific env
+# Generate host-specific env and copy hyprlock
 mkdir -p "$CONFIG_DIR/hypr"
 if [ "$HOST" = "laptop" ]; then
     cp "$REPO_DIR/hosts/laptop/hypr/env.conf" "$CONFIG_DIR/hypr/env.conf"
@@ -97,6 +98,10 @@ else
     cp "$REPO_DIR/hosts/pc/hypr/env.conf" "$CONFIG_DIR/hypr/env.conf"
     cp "$REPO_DIR/hosts/pc/hypr/monitors.conf" "$CONFIG_DIR/hypr/"
 fi
+
+# Copy hyprlock and hypridle configs (they look for these directly)
+cp "$REPO_DIR/defaults/hypr/hyprlock.conf" "$CONFIG_DIR/hypr/hyprlock.conf"
+cp "$REPO_DIR/defaults/hypr/hypridle.conf" "$CONFIG_DIR/hypr/hypridle.conf"
 
 # Symlink waybar (user can break symlink to customize)
 rm -f "$CONFIG_DIR/waybar/config" "$CONFIG_DIR/waybar/style.css" "$CONFIG_DIR/waybar/power-menu.sh"

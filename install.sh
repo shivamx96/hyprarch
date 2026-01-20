@@ -67,6 +67,9 @@ cp -rv "$REPO_DIR/defaults/ghostty" "$DOTS_DIR/" || { echo "Failed to copy ghost
 cp -rv "$REPO_DIR/defaults/fontconfig" "$DOTS_DIR/" || { echo "Failed to copy fontconfig"; exit 1; }
 cp -rv "$REPO_DIR/defaults/shell" "$DOTS_DIR/" || { echo "Failed to copy shell"; exit 1; }
 
+# Make shell scripts executable
+chmod +x "$DOTS_DIR/shell"/*.sh
+
 ls -la "$DOTS_DIR"
 
 # Fix ownership if run with sudo

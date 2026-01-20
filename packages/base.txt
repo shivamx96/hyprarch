@@ -18,6 +18,9 @@ pipewire-alsa
 pipewire-pulse
 wireplumber
 pavucontrol
+noto-fonts
+noto-fonts-emoji
+noto-fonts-nerd
 intel-media-driver
 libva-intel-driver
 vulkan-intel

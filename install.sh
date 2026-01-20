@@ -53,6 +53,7 @@ cp -rv "$REPO_DIR/defaults/hypr" "$DOTS_DIR/" || { echo "Failed to copy hypr"; e
 cp -rv "$REPO_DIR/defaults/waybar" "$DOTS_DIR/" || { echo "Failed to copy waybar"; exit 1; }
 cp -rv "$REPO_DIR/defaults/dunst" "$DOTS_DIR/" || { echo "Failed to copy dunst"; exit 1; }
 cp -rv "$REPO_DIR/defaults/ghostty" "$DOTS_DIR/" || { echo "Failed to copy ghostty"; exit 1; }
+cp -rv "$REPO_DIR/defaults/fontconfig" "$DOTS_DIR/" || { echo "Failed to copy fontconfig"; exit 1; }
 cp -rv "$REPO_DIR/defaults/shell" "$DOTS_DIR/" || { echo "Failed to copy shell"; exit 1; }
 
 ls -la "$DOTS_DIR"
@@ -101,6 +102,11 @@ ln -s "$DOTS_DIR/dunst/dunstrc" "$CONFIG_DIR/dunst/dunstrc"
 mkdir -p "$CONFIG_DIR/ghostty"
 rm -f "$CONFIG_DIR/ghostty/config"
 ln -s "$DOTS_DIR/ghostty/config" "$CONFIG_DIR/ghostty/config"
+
+# Symlink fontconfig
+mkdir -p "$CONFIG_DIR/fontconfig/conf.d"
+rm -f "$CONFIG_DIR/fontconfig/conf.d/local.conf"
+ln -s "$DOTS_DIR/fontconfig/local.conf" "$CONFIG_DIR/fontconfig/conf.d/local.conf"
 
 echo "✓ Installation complete!"
 echo "✓ Host: $HOST"

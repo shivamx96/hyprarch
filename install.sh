@@ -30,12 +30,9 @@ echo "Detected host: $HOST"
 # Install AUR helper if not present
 if ! command -v yay &> /dev/null && ! command -v paru &> /dev/null; then
     echo "Installing paru (AUR helper)..."
-    sudo pacman -S --noconfirm base-devel
-    cd /tmp
-    git clone https://aur.archlinux.org/paru.git || true
-    cd paru
-    makepkg -si --noconfirm
-    cd - > /dev/null
+    pacman -S --noconfirm base-devel
+    rm -rf /tmp/paru
+    sudo -u "$SUDO_USER" bash -c 'cd /tmp && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si --noconfirm'
 fi
 
 # Install packages

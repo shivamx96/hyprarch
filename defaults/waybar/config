@@ -27,12 +27,13 @@
   },
 
   "hyprland/window": {
-    "format": "{title}",
+    "format": "{}",
     "max-length": 50,
     "rewrite": {
       "(.*) - Mozilla Firefox": "🌐 $1",
       "(.*) - Zed": "󰘦 $1"
-    }
+    },
+    "separate-outputs": false
   },
 
   "clock": {

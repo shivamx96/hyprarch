@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-choice=$(printf "Suspend\nShutdown\nReboot\nLogout" | fuzzel -d)
+choice=$(printf "Lock\nSuspend\nShutdown\nReboot\nLogout" | fuzzel --dmenu --prompt "⏻ Power Menu")
 
 case "$choice" in
+    Lock)
+        hyprlock
+        ;;
     Suspend)
         systemctl suspend
         ;;

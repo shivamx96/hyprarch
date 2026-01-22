@@ -75,7 +75,7 @@ ls -la "$DOTS_DIR"
 # Fix ownership if run with sudo
 if [ "$SUDO_USER" ]; then
     chown -R "$SUDO_USER:$SUDO_USER" "$DOTS_DIR"
-    chown -R "$SUDO_USER:$SUDO_USER" "$CONFIG_DIR/hypr" "$CONFIG_DIR/waybar" "$CONFIG_DIR/dunst" "$CONFIG_DIR/ghostty" "$CONFIG_DIR/fontconfig" 2>/dev/null || true
+    chown -R "$SUDO_USER:$SUDO_USER" "$CONFIG_DIR"
 fi
 
 # Create user config structure

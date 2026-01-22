@@ -24,6 +24,7 @@ window#waybar {
 #workspaces,
 #window,
 #network,
+#bluetooth,
 #backlight,
 #wireplumber,
 #pulseaudio,
@@ -90,6 +91,14 @@ window#waybar {
 
 #battery.critical {
     color: #ff6961;
+}
+
+#bluetooth {
+    color: #a6d189;
+}
+
+#bluetooth.disabled {
+    color: #6c7086;
 }
 
 /* Group rounded corners */

@@ -8,6 +8,7 @@
   "modules-right": [
     "backlight",
     "pulseaudio",
+    "bluetooth",
     "cpu",
     "memory",
     "network",
@@ -59,6 +60,14 @@
     "reverse-scrolling": true,
     "on-click": "pavucontrol",
     "ignored-sinks": ["Easy Effects Sink"]
+  },
+
+  "bluetooth": {
+    "format": "󰂯",
+    "format-connected": "󰂯 {num_connections}",
+    "format-disabled": "󰂲",
+    "on-click": "blueman-manager",
+    "tooltip-format": "{controller_alias}\n{num_connections} connected"
   },
 
   "cpu": {

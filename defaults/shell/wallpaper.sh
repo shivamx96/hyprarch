@@ -32,9 +32,11 @@ set_wallpaper() {
 
 # Function to get random wallpaper
 random_wallpaper() {
-    local wallpapers=("$WALLPAPER_DIR"/*.{jpg,jpeg,png})
+    shopt -s nullglob
+    local wallpapers=("$WALLPAPER_DIR"/*.{jpg,jpeg,png,JPG,JPEG,PNG})
+    shopt -u nullglob
 
-    if [ ! -e "${wallpapers[0]}" ]; then
+    if [ ${#wallpapers[@]} -eq 0 ]; then
         echo "No wallpapers found in $WALLPAPER_DIR"
         return 1
     fi
@@ -45,9 +47,11 @@ random_wallpaper() {
 
 # Function to cycle wallpapers
 cycle_wallpaper() {
-    local wallpapers=("$WALLPAPER_DIR"/*.{jpg,jpeg,png})
+    shopt -s nullglob
+    local wallpapers=("$WALLPAPER_DIR"/*.{jpg,jpeg,png,JPG,JPEG,PNG})
+    shopt -u nullglob
 
-    if [ ! -e "${wallpapers[0]}" ]; then
+    if [ ${#wallpapers[@]} -eq 0 ]; then
         echo "No wallpapers found in $WALLPAPER_DIR"
         return 1
     fi

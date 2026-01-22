@@ -76,6 +76,8 @@ ls -la "$DOTS_DIR"
 if [ "$SUDO_USER" ]; then
     chown -R "$SUDO_USER:$SUDO_USER" "$DOTS_DIR"
     chown -R "$SUDO_USER:$SUDO_USER" "$CONFIG_DIR"
+    [ -d "$USER_HOME/.cache" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.cache"
+    [ -d "$USER_HOME/.local" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.local"
 fi
 
 # Create user config structure

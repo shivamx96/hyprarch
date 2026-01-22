@@ -23,6 +23,7 @@ alsa-ucm-conf
 bluez
 bluez-utils
 blueman
+swww
 ttf-roboto
 ttf-jetbrains-mono
 noto-fonts

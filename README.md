@@ -51,6 +51,16 @@ The script will:
 - **Clean notifications** via Dunst
 - **Status bar** with Waybar showing volume, brightness, network, battery, etc.
 
+## Wallpapers
+
+Wallpapers are managed with **swww** (dynamic background for Wayland).
+
+- Add wallpapers to: `~/.local/share/hyprarch/wallpapers/`
+- Change wallpaper: `Super + Shift + W` (cycles through all wallpapers)
+- Set random: `~/.local/share/hyprarch/shell/wallpaper.sh random`
+
+See [WALLPAPERS.md](WALLPAPERS.md) for recommended wallpaper sources and setup.
+
 ## Customize
 
 Edit `~/.config/` to customize. Waybar, dunst, and ghostty symlinks can be broken to customize independently.

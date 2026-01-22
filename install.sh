@@ -75,6 +75,9 @@ cp -rv "$REPO_DIR/defaults/shell" "$DOTS_DIR/" || { echo "Failed to copy shell";
 # Make shell scripts executable
 chmod +x "$DOTS_DIR/shell"/*.sh
 
+# Create wallpapers directory
+mkdir -p "$DOTS_DIR/wallpapers"
+
 ls -la "$DOTS_DIR"
 
 # Fix ownership if run with sudo

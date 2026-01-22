@@ -71,13 +71,13 @@
   },
 
   "cpu": {
-    "format": "  {usage}%",
+    "format": "   {usage}%",
     "on-click": "ghostty -e bash -c 'btop'",
     "interval": 1
   },
 
   "memory": {
-    "format": "  {}%",
+    "format": "   {}%",
     "on-click": "ghostty -e bash -c 'btop'",
     "interval": 1,
     "tooltip-format": "Used: {used}GB\nTotal: {total}GB"

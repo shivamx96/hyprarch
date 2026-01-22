@@ -65,7 +65,7 @@
   "bluetooth": {
     "format": "󰂯",
     "format-connected": "󰂯 {num_connections}",
-    "format-disabled": "󰂲",
+    "format-disabled": "󰂲 off",
     "on-click": "blueman-manager",
     "tooltip-format": "{controller_alias}\n{num_connections} connected"
   },

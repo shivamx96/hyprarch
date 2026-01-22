@@ -8,7 +8,7 @@
     border-radius: 0;
     margin-top: 2;
     margin-bottom: 2;
-    font-family: "Inter", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 14px;
     font-weight: normal;
     min-height: 0;
@@ -33,7 +33,7 @@ window#waybar {
 #custom-power,
 #battery {
     background: @bg-color;
-    padding: 0 12px;
+    padding: 0 6px;
     margin: 1px 1px;
     border: 1px solid @blue-accent;
 }

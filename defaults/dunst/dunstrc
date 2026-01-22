@@ -13,7 +13,7 @@ frame_color = "#45475a"
 separator_color = "#45475a"
 background = "#1e1e2e"
 foreground = "#cdd6f4"
-font = Inter 10
+font = Roboto 10
 line_height = 3
 
 [urgency_low]

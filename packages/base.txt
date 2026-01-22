@@ -20,6 +20,10 @@ wireplumber
 pavucontrol
 sof-firmware
 alsa-ucm-conf
+bluez
+bluez-utils
+blueman
+ttf-roboto
 ttf-jetbrains-mono
 noto-fonts
 noto-fonts-emoji

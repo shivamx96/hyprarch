@@ -51,6 +51,11 @@ fi
 
 echo "Package installation step complete."
 
+# Enable and start Bluetooth service
+echo "Setting up Bluetooth..."
+systemctl enable bluetooth.service
+systemctl start bluetooth.service || echo "Warning: Could not start bluetooth service (may need manual setup)"
+
 # Create directories
 mkdir -p "$DOTS_DIR"
 mkdir -p "$CONFIG_DIR"

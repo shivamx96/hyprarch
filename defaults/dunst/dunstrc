@@ -27,8 +27,3 @@ foreground = "#cdd6f4"
 [urgency_critical]
 background = "#1e1e2e"
 foreground = "#f38ba8"
-
-# Ignore OSD popups (handled by notify-osd)
-[hyprarch-osd]
-appname = hyprarch
-skip_display = true

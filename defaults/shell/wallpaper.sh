@@ -17,11 +17,11 @@ set_wallpaper() {
         return 1
     fi
 
-    # Start swww daemon if not already running
-    if ! pgrep -x "swww-daemon" > /dev/null; then
-        swww-daemon &
-        sleep 1
-    fi
+    # Wait for swww daemon to be ready
+    for i in $(seq 1 10); do
+        swww query 2>/dev/null && break
+        sleep 0.5
+    done
 
     # Set wallpaper with transition
     swww img "$wallpaper" --transition-type wipe --transition-duration 1

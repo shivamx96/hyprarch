@@ -1,3 +1,4 @@
+linux-headers
 nvidia-open-dkms
 nvidia-utils
 libva-nvidia-driver

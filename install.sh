@@ -155,6 +155,11 @@ if [ "$HOST" = "pc" ]; then
     mkdir -p /etc/modprobe.d
     echo "options nvidia_drm modeset=1" > /etc/modprobe.d/nvidia.conf
 
+    # Ensure DKMS modules are built
+    if command -v dkms &> /dev/null; then
+        dkms autoinstall
+    fi
+
     # Add NVIDIA modules to mkinitcpio if not already present
     NVIDIA_MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"
     if [ -f /etc/mkinitcpio.conf ]; then

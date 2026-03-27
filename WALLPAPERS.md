@@ -1,6 +1,6 @@
 # Wallpaper Setup
 
-Hyprarch uses **swww** for beautiful dynamic wallpaper management on Wayland.
+Hyprarch uses **awww** for beautiful dynamic wallpaper management on Wayland.
 
 ## How to Use
 
@@ -50,7 +50,7 @@ Download beautiful Catppuccin-themed wallpapers from:
 
 - **Resolution:** Use high-res images (2560x1440 or higher for laptop)
 - **Format:** JPG or PNG
-- **Performance:** swww is lightweight and fast
+- **Performance:** awww is lightweight and fast
 - **Transitions:** Automatically uses wipe transition (customize in wallpaper.sh)
 
 ## Download Quick Start

@@ -57,7 +57,7 @@ The script will:
 
 ## Wallpapers
 
-Wallpapers are managed with **swww** (dynamic background for Wayland).
+Wallpapers are managed with **awww** (dynamic background for Wayland).
 
 - Add wallpapers to: `~/.local/share/hyprarch/wallpapers/`
 - Change wallpaper: `Super + Shift + W` (cycles through all wallpapers)

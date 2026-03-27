@@ -22,7 +22,7 @@ pavucontrol
 bluez
 bluez-utils
 blueman
-swww
+awww
 ttf-roboto
 ttf-jetbrains-mono
 noto-fonts

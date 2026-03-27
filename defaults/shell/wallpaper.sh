@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Wallpaper manager for swww
+# Wallpaper manager for awww
 
 WALLPAPER_DIR="$HOME/.local/share/hyprarch/wallpapers"
 CURRENT_WALLPAPER="$HOME/.cache/hyprarch-wallpaper"
@@ -17,14 +17,14 @@ set_wallpaper() {
         return 1
     fi
 
-    # Wait for swww daemon to be ready
+    # Wait for awww daemon to be ready
     for i in $(seq 1 10); do
-        swww query 2>/dev/null && break
+        awww query 2>/dev/null && break
         sleep 0.5
     done
 
     # Set wallpaper with transition
-    swww img "$wallpaper" --transition-type wipe --transition-duration 1
+    awww img "$wallpaper" --transition-type wipe --transition-duration 1
 
     # Save current wallpaper
     echo "$wallpaper" > "$CURRENT_WALLPAPER"

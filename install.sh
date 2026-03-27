@@ -42,13 +42,13 @@ fi
 
 # Install packages (we're already root from sudo ./install.sh)
 echo "Installing base packages..."
-pacman -S --noconfirm --needed - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed"
+pacman -S --noconfirm --needed $(cat "$REPO_DIR/packages/base.txt") || echo "Warning: pacman failed"
 
 # Install host-specific packages
 HOST_PKGS="$REPO_DIR/hosts/$HOST/packages.txt"
 if [ -f "$HOST_PKGS" ]; then
     echo "Installing $HOST packages..."
-    pacman -S --noconfirm --needed - < "$HOST_PKGS" || echo "Warning: host package install failed"
+    pacman -S --noconfirm --needed $(cat "$HOST_PKGS") || echo "Warning: host package install failed"
 fi
 
 # Install AUR packages as user (AUR helpers must run as non-root)

@@ -151,11 +151,31 @@ echo "✓ Defaults: ~/.local/share/hyprarch"
 echo "✓ User configs: ~/.config"
 echo ""
 if [ "$HOST" = "pc" ]; then
-    echo "NVIDIA post-install:"
-    echo "  1. Ensure /etc/modprobe.d/nvidia.conf contains: options nvidia_drm modeset=1"
-    echo "  2. Add to /etc/mkinitcpio.conf MODULES: nvidia nvidia_modeset nvidia_uvm nvidia_drm"
-    echo "  3. Run: sudo mkinitcpio -P"
-    echo "  4. Reboot before starting Hyprland"
+    echo "Configuring NVIDIA DRM..."
+    mkdir -p /etc/modprobe.d
+    echo "options nvidia_drm modeset=1" > /etc/modprobe.d/nvidia.conf
+
+    # Add NVIDIA modules to mkinitcpio if not already present
+    NVIDIA_MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"
+    if [ -f /etc/mkinitcpio.conf ]; then
+        CURRENT_MODULES=$(grep "^MODULES=" /etc/mkinitcpio.conf | sed 's/MODULES=(\(.*\))/\1/')
+        NEEDS_UPDATE=false
+        for mod in $NVIDIA_MODULES; do
+            if ! echo "$CURRENT_MODULES" | grep -qw "$mod"; then
+                NEEDS_UPDATE=true
+                break
+            fi
+        done
+        if [ "$NEEDS_UPDATE" = true ]; then
+            sed -i "s/^MODULES=(\(.*\))/MODULES=(\1 $NVIDIA_MODULES)/" /etc/mkinitcpio.conf
+            # Clean up any double spaces
+            sed -i 's/MODULES=(  */MODULES=(/' /etc/mkinitcpio.conf
+            echo "Rebuilding initramfs..."
+            mkinitcpio -P
+        fi
+    fi
+    echo "✓ NVIDIA DRM modeset and early KMS configured"
+    echo "  Reboot before starting Hyprland"
     echo ""
 fi
 echo "Next: Start Hyprland (e.g., Ctrl+Alt+F2 to switch to TTY, then 'Hyprland')"

@@ -68,6 +68,15 @@ echo "Setting up Bluetooth..."
 systemctl enable bluetooth.service
 systemctl start bluetooth.service || echo "Warning: Could not start bluetooth service (may need manual setup)"
 
+# Enable auto-login on TTY1
+echo "Setting up auto-login..."
+mkdir -p /etc/systemd/system/getty@tty1.service.d
+cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf << AUTOLOGIN
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty -o '-p -f -- \\\\u' --noclear --autologin $SUDO_USER %I \$TERM
+AUTOLOGIN
+
 # Create directories
 mkdir -p "$DOTS_DIR"
 mkdir -p "$CONFIG_DIR"
@@ -148,6 +157,24 @@ mkdir -p "$CONFIG_DIR/fontconfig/conf.d"
 rm -f "$CONFIG_DIR/fontconfig/conf.d/local.conf"
 ln -s "$DOTS_DIR/fontconfig/local.conf" "$CONFIG_DIR/fontconfig/conf.d/local.conf"
 
+# Source hyprarch profile from user's shell login config
+PROFILE_SOURCE="source $DOTS_DIR/shell/profile"
+for rc in "$USER_HOME/.bash_profile" "$USER_HOME/.zprofile"; do
+    if [ -f "$rc" ] || [[ "$rc" == *bash* && -f "$USER_HOME/.bashrc" ]] || [[ "$rc" == *zsh* && -f "$USER_HOME/.zshrc" ]]; then
+        touch "$rc"
+        if ! grep -qF "$PROFILE_SOURCE" "$rc"; then
+            echo "$PROFILE_SOURCE" >> "$rc"
+        fi
+    fi
+done
+# Always add to bash_profile as fallback (default Arch shell)
+touch "$USER_HOME/.bash_profile"
+if ! grep -qF "$PROFILE_SOURCE" "$USER_HOME/.bash_profile"; then
+    echo "$PROFILE_SOURCE" >> "$USER_HOME/.bash_profile"
+fi
+chown "$SUDO_USER:$SUDO_USER" "$USER_HOME/.bash_profile"
+[ -f "$USER_HOME/.zprofile" ] && chown "$SUDO_USER:$SUDO_USER" "$USER_HOME/.zprofile"
+
 # Configure NVIDIA DRM and early KMS
 if [ "$HOST" = "pc" ]; then
     echo "Configuring NVIDIA DRM..."
@@ -192,11 +219,9 @@ echo "✓ Installation complete!"
 echo "✓ Host: $HOST"
 echo "✓ Defaults: ~/.local/share/hyprarch"
 echo "✓ User configs: ~/.config"
+echo "✓ Auto-login and Hyprland auto-start configured"
 if [ "$HOST" = "pc" ]; then
     echo "✓ NVIDIA DRM modeset and early KMS configured"
-    echo ""
-    echo "Reboot before starting Hyprland."
-else
-    echo ""
-    echo "Next: Start Hyprland (e.g., Ctrl+Alt+F2 to switch to TTY, then 'Hyprland')"
 fi
+echo ""
+echo "Reboot to launch into Hyprland."

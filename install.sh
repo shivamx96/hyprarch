@@ -55,7 +55,8 @@ fi
 AUR_HELPER=$(command -v paru || command -v yay)
 if [ -n "$AUR_HELPER" ]; then
     echo "Installing AUR packages..."
-    sudo -u "$SUDO_USER" bash -c "$AUR_HELPER -S - < '$REPO_DIR/packages/aur.txt'" || echo "Warning: AUR install failed"
+    AUR_PKGS=$(cat "$REPO_DIR/packages/aur.txt" | tr '\n' ' ')
+    sudo -u "$SUDO_USER" $AUR_HELPER -S --noconfirm --needed $AUR_PKGS || echo "Warning: AUR install failed"
 else
     echo "Error: No AUR helper available."
     exit 1

@@ -18,8 +18,6 @@ pipewire-alsa
 pipewire-pulse
 wireplumber
 pavucontrol
-sof-firmware
-alsa-ucm-conf
 bluez
 bluez-utils
 blueman
@@ -28,8 +26,5 @@ ttf-roboto
 ttf-jetbrains-mono
 noto-fonts
 noto-fonts-emoji
-intel-media-driver
-libva-intel-driver
-vulkan-intel
 base-devel
 git

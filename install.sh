@@ -36,8 +36,15 @@ if ! command -v yay &> /dev/null && ! command -v paru &> /dev/null; then
 fi
 
 # Install packages (we're already root from sudo ./install.sh)
-echo "Installing packages..."
-pacman -S - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed"
+echo "Installing base packages..."
+pacman -S --needed - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed"
+
+# Install host-specific packages
+HOST_PKGS="$REPO_DIR/hosts/$HOST/packages.txt"
+if [ -f "$HOST_PKGS" ]; then
+    echo "Installing $HOST packages..."
+    pacman -S --needed - < "$HOST_PKGS" || echo "Warning: host package install failed"
+fi
 
 # Install AUR packages as user (AUR helpers must run as non-root)
 AUR_HELPER=$(command -v paru || command -v yay)
@@ -102,14 +109,15 @@ source = ~/.local/share/hyprarch/hypr/env.conf
 source = ~/.config/hypr/env.conf
 EOF
 
-# Generate host-specific env and copy hyprlock
+# Copy host-specific configs
 mkdir -p "$CONFIG_DIR/hypr"
-if [ "$HOST" = "laptop" ]; then
-    cp "$REPO_DIR/hosts/laptop/hypr/env.conf" "$CONFIG_DIR/hypr/env.conf"
-    cp "$REPO_DIR/hosts/laptop/hypr/monitors.conf" "$CONFIG_DIR/hypr/"
+HOST_DIR="$REPO_DIR/hosts/$HOST/hypr"
+if [ -d "$HOST_DIR" ]; then
+    cp "$HOST_DIR/env.conf" "$CONFIG_DIR/hypr/env.conf"
+    cp "$HOST_DIR/monitors.conf" "$CONFIG_DIR/hypr/"
 else
-    cp "$REPO_DIR/hosts/pc/hypr/env.conf" "$CONFIG_DIR/hypr/env.conf"
-    cp "$REPO_DIR/hosts/pc/hypr/monitors.conf" "$CONFIG_DIR/hypr/"
+    echo "Error: No host config found at $HOST_DIR"
+    exit 1
 fi
 
 # Copy hyprlock and hypridle configs (they look for these directly)
@@ -142,4 +150,12 @@ echo "✓ Host: $HOST"
 echo "✓ Defaults: ~/.local/share/hyprarch"
 echo "✓ User configs: ~/.config"
 echo ""
+if [ "$HOST" = "pc" ]; then
+    echo "NVIDIA post-install:"
+    echo "  1. Ensure /etc/modprobe.d/nvidia.conf contains: options nvidia_drm modeset=1"
+    echo "  2. Add to /etc/mkinitcpio.conf MODULES: nvidia nvidia_modeset nvidia_uvm nvidia_drm"
+    echo "  3. Run: sudo mkinitcpio -P"
+    echo "  4. Reboot before starting Hyprland"
+    echo ""
+fi
 echo "Next: Start Hyprland (e.g., Ctrl+Alt+F2 to switch to TTY, then 'Hyprland')"

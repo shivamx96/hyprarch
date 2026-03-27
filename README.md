@@ -1,6 +1,10 @@
 # hyprarch
 
-Arch + Hyprland bootstrap for laptop (Intel Core Ultra 9 185H).
+Arch + Hyprland bootstrap with automatic hardware detection.
+
+Supported hosts:
+- **laptop** — Intel Core Ultra 9 185H with Arc iGPU
+- **pc** — NVIDIA (RTX 5090 / any NVIDIA GPU) with AMD Ryzen
 
 ## Install
 
@@ -44,7 +48,7 @@ The script will:
 
 ## Features
 
-- **Laptop-optimized** for Intel Core Ultra 9 185H with Arc iGPU
+- **Multi-host** with auto-detection (Intel laptop / NVIDIA desktop)
 - **Audio support** via PipeWire with Pavucontrol GUI
 - **Bluetooth** with Blueman GUI manager
 - **Power management** via Hypridle (auto-lock, brightness control, suspend)

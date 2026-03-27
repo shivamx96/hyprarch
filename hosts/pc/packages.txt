@@ -1,0 +1,5 @@
+nvidia-open-dkms
+nvidia-utils
+libva-nvidia-driver
+vulkan-icd-loader
+egl-wayland

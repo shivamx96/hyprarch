@@ -17,9 +17,9 @@ set_wallpaper() {
         return 1
     fi
 
-    # Initialize swww if not already running
+    # Start swww daemon if not already running
     if ! pgrep -x "swww-daemon" > /dev/null; then
-        swww init
+        swww-daemon &
         sleep 1
     fi
 
@@ -37,7 +37,7 @@ random_wallpaper() {
     shopt -u nullglob
 
     if [ ${#wallpapers[@]} -eq 0 ]; then
-        echo "No wallpapers found in $WALLPAPER_DIR"
+        echo "No wallpapers found in $WALLPAPER_DIR" >&2
         return 1
     fi
 
@@ -52,7 +52,7 @@ cycle_wallpaper() {
     shopt -u nullglob
 
     if [ ${#wallpapers[@]} -eq 0 ]; then
-        echo "No wallpapers found in $WALLPAPER_DIR"
+        echo "No wallpapers found in $WALLPAPER_DIR" >&2
         return 1
     fi
 
@@ -75,7 +75,7 @@ case "${1:-random}" in
         set_wallpaper "$2"
         ;;
     random)
-        wp=$(random_wallpaper)
+        wp=$(random_wallpaper) || exit 1
         set_wallpaper "$wp"
         ;;
     cycle)

@@ -97,14 +97,6 @@ cp -rv "$REPO_DIR/defaults/wallpapers" "$DOTS_DIR/" || { echo "Failed to copy wa
 # Make shell scripts executable
 chmod +x "$DOTS_DIR/shell"/*.sh
 
-ls -la "$DOTS_DIR"
-
-# Fix ownership (running as root via sudo)
-chown -R "$SUDO_USER:$SUDO_USER" "$DOTS_DIR"
-chown -R "$SUDO_USER:$SUDO_USER" "$CONFIG_DIR"
-[ -d "$USER_HOME/.cache" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.cache"
-[ -d "$USER_HOME/.local" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.local"
-
 # Create user config structure
 echo "Generating user configs..."
 mkdir -p "$CONFIG_DIR/hypr"
@@ -157,21 +149,24 @@ ln -s "$DOTS_DIR/fontconfig/local.conf" "$CONFIG_DIR/fontconfig/conf.d/local.con
 
 # Source hyprarch profile from user's shell login config
 PROFILE_SOURCE="source $DOTS_DIR/shell/profile"
-for rc in "$USER_HOME/.bash_profile" "$USER_HOME/.zprofile"; do
-    if [ -f "$rc" ] || [[ "$rc" == *bash* && -f "$USER_HOME/.bashrc" ]] || [[ "$rc" == *zsh* && -f "$USER_HOME/.zshrc" ]]; then
-        touch "$rc"
-        if ! grep -qF "$PROFILE_SOURCE" "$rc"; then
-            echo "$PROFILE_SOURCE" >> "$rc"
-        fi
-    fi
-done
-# Always add to bash_profile as fallback (default Arch shell)
-touch "$USER_HOME/.bash_profile"
-if ! grep -qF "$PROFILE_SOURCE" "$USER_HOME/.bash_profile"; then
-    echo "$PROFILE_SOURCE" >> "$USER_HOME/.bash_profile"
+# Detect user's shell and add to the right profile
+USER_SHELL=$(getent passwd "$SUDO_USER" | cut -d: -f7)
+if [[ "$USER_SHELL" == */zsh ]]; then
+    SHELL_RC="$USER_HOME/.zprofile"
+else
+    SHELL_RC="$USER_HOME/.bash_profile"
 fi
-chown "$SUDO_USER:$SUDO_USER" "$USER_HOME/.bash_profile"
-[ -f "$USER_HOME/.zprofile" ] && chown "$SUDO_USER:$SUDO_USER" "$USER_HOME/.zprofile"
+touch "$SHELL_RC"
+if ! grep -qF "$PROFILE_SOURCE" "$SHELL_RC"; then
+    echo "$PROFILE_SOURCE" >> "$SHELL_RC"
+fi
+
+# Fix ownership (must be after all config generation)
+chown -R "$SUDO_USER:$SUDO_USER" "$DOTS_DIR"
+chown -R "$SUDO_USER:$SUDO_USER" "$CONFIG_DIR"
+chown "$SUDO_USER:$SUDO_USER" "$SHELL_RC"
+[ -d "$USER_HOME/.cache" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.cache"
+[ -d "$USER_HOME/.local" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.local"
 
 # Configure NVIDIA DRM and early KMS
 if [ "$HOST" = "pc" ]; then

@@ -1,9 +1,9 @@
 [global]
 monitor = 0
-geometry = "400x100-15+15"
-alignment = right
+width = 400
+height = 100
 origin = top-right
-transparency = 10
+offset = 15x15
 separator_height = 1
 padding = 8
 horizontal_padding = 8
@@ -15,6 +15,7 @@ background = "#1e1e2e"
 foreground = "#cdd6f4"
 font = Atkinson Hyperlegible Next 10
 line_height = 3
+corner_radius = 10
 
 [urgency_low]
 background = "#1e1e2e"

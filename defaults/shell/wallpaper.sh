@@ -75,7 +75,7 @@ case "${1:-random}" in
         set_wallpaper "$2"
         ;;
     random)
-        local wp=$(random_wallpaper)
+        wp=$(random_wallpaper)
         set_wallpaper "$wp"
         ;;
     cycle)

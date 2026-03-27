@@ -1,3 +1,4 @@
 zen-browser-bin
 inter-font
+ttf-atkinson-hyperlegible-next
 ttf-jetbrains-mono-nerd

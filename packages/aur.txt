@@ -1,4 +1,9 @@
-zen-browser-bin
 inter-font
 ttf-atkinson-hyperlegible-next
 ttf-jetbrains-mono-nerd
+zen-browser-bin
+helium-browser-bin
+slack-desktop
+tailscale
+claude-code
+lmstudio-bin

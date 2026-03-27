@@ -154,7 +154,14 @@ if [ "$HOST" = "pc" ]; then
     mkdir -p /etc/modprobe.d
     echo "options nvidia_drm modeset=1" > /etc/modprobe.d/nvidia.conf
 
-    # Ensure DKMS modules are built
+    # Install headers for all installed kernels
+    for kern in $(pacman -Qqe | grep "^linux" | grep -v headers); do
+        if pacman -Si "${kern}-headers" &> /dev/null; then
+            pacman -S --noconfirm --needed "${kern}-headers"
+        fi
+    done
+
+    # Ensure DKMS modules are built for all kernels
     if command -v dkms &> /dev/null; then
         dkms autoinstall
     fi

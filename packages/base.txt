@@ -1,4 +1,5 @@
 hyprland
+uwsm
 hyprcursor
 hyprlock
 hypridle

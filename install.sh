@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Preserve user's home when run with sudo
-if [ "$SUDO_USER" ]; then
-    USER_HOME="/home/$SUDO_USER"
-else
-    USER_HOME="$HOME"
+# Must run as root
+if [ "$EUID" -ne 0 ]; then
+    echo "Run with sudo: sudo ./install.sh"
+    exit 1
 fi
+
+if [ -z "$SUDO_USER" ]; then
+    echo "Run with sudo, not as root directly: sudo ./install.sh"
+    exit 1
+fi
+
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+USER_HOME="/home/$SUDO_USER"
 
 DOTS_DIR="$USER_HOME/.local/share/hyprarch"
 CONFIG_DIR="$USER_HOME/.config"
@@ -30,20 +35,20 @@ echo "Detected host: $HOST"
 # Install AUR helper if not present
 if ! command -v yay &> /dev/null && ! command -v paru &> /dev/null; then
     echo "Installing paru (AUR helper)..."
-    pacman -S --noconfirm base-devel
+    pacman -S --noconfirm --needed base-devel
     rm -rf /tmp/paru
     sudo -u "$SUDO_USER" bash -c 'cd /tmp && git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si'
 fi
 
 # Install packages (we're already root from sudo ./install.sh)
 echo "Installing base packages..."
-pacman -S --needed - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed"
+pacman -S --noconfirm --needed - < "$REPO_DIR/packages/base.txt" || echo "Warning: pacman failed"
 
 # Install host-specific packages
 HOST_PKGS="$REPO_DIR/hosts/$HOST/packages.txt"
 if [ -f "$HOST_PKGS" ]; then
     echo "Installing $HOST packages..."
-    pacman -S --needed - < "$HOST_PKGS" || echo "Warning: host package install failed"
+    pacman -S --noconfirm --needed - < "$HOST_PKGS" || echo "Warning: host package install failed"
 fi
 
 # Install AUR packages as user (AUR helpers must run as non-root)
@@ -87,13 +92,11 @@ mkdir -p "$DOTS_DIR/wallpapers"
 
 ls -la "$DOTS_DIR"
 
-# Fix ownership if run with sudo
-if [ "$SUDO_USER" ]; then
-    chown -R "$SUDO_USER:$SUDO_USER" "$DOTS_DIR"
-    chown -R "$SUDO_USER:$SUDO_USER" "$CONFIG_DIR"
-    [ -d "$USER_HOME/.cache" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.cache"
-    [ -d "$USER_HOME/.local" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.local"
-fi
+# Fix ownership (running as root via sudo)
+chown -R "$SUDO_USER:$SUDO_USER" "$DOTS_DIR"
+chown -R "$SUDO_USER:$SUDO_USER" "$CONFIG_DIR"
+[ -d "$USER_HOME/.cache" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.cache"
+[ -d "$USER_HOME/.local" ] && chown -R "$SUDO_USER:$SUDO_USER" "$USER_HOME/.local"
 
 # Create user config structure
 echo "Generating user configs..."
@@ -145,11 +148,7 @@ mkdir -p "$CONFIG_DIR/fontconfig/conf.d"
 rm -f "$CONFIG_DIR/fontconfig/conf.d/local.conf"
 ln -s "$DOTS_DIR/fontconfig/local.conf" "$CONFIG_DIR/fontconfig/conf.d/local.conf"
 
-echo "✓ Installation complete!"
-echo "✓ Host: $HOST"
-echo "✓ Defaults: ~/.local/share/hyprarch"
-echo "✓ User configs: ~/.config"
-echo ""
+# Configure NVIDIA DRM and early KMS
 if [ "$HOST" = "pc" ]; then
     echo "Configuring NVIDIA DRM..."
     mkdir -p /etc/modprobe.d
@@ -179,8 +178,18 @@ if [ "$HOST" = "pc" ]; then
             mkinitcpio -P
         fi
     fi
-    echo "✓ NVIDIA DRM modeset and early KMS configured"
-    echo "  Reboot before starting Hyprland"
-    echo ""
 fi
-echo "Next: Start Hyprland (e.g., Ctrl+Alt+F2 to switch to TTY, then 'Hyprland')"
+
+echo ""
+echo "✓ Installation complete!"
+echo "✓ Host: $HOST"
+echo "✓ Defaults: ~/.local/share/hyprarch"
+echo "✓ User configs: ~/.config"
+if [ "$HOST" = "pc" ]; then
+    echo "✓ NVIDIA DRM modeset and early KMS configured"
+    echo ""
+    echo "Reboot before starting Hyprland."
+else
+    echo ""
+    echo "Next: Start Hyprland (e.g., Ctrl+Alt+F2 to switch to TTY, then 'Hyprland')"
+fi

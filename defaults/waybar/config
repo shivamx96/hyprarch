@@ -51,8 +51,8 @@
   "backlight": {
     "format": "{icon} {percent}%",
     "format-icons": ["󰃞", "󰃟", "󰃠"],
-    "on-scroll-up": "brightnessctl set 1%+",
-    "on-scroll-down": "brightnessctl set 1%-"
+    "on-scroll-up": "brightnessctl set 1%-",
+    "on-scroll-down": "brightnessctl set 1%+"
   },
 
   "pulseaudio": {
@@ -75,9 +75,9 @@
 
   "network": {
     "interval": 5,
-    "format-wifi": "󰤨 {bandwidthTotalBytes}",
+    "format-wifi": "󰤨  {bandwidthTotalBytes}",
     "format-ethernet": "  {bandwidthTotalBytes}",
-    "format-disconnected": "󰤭 Offline",
+    "format-disconnected": "󰤭  Offline",
     "tooltip-format-wifi": "IP: {ipaddr}\nNetwork: {essid}\nSignal: {signalStrength}%\nUp: {bandwidthUpBytes} Down: {bandwidthDownBytes}",
     "tooltip-format-ethernet": "IP: {ipaddr}\nUp: {bandwidthUpBytes} Down: {bandwidthDownBytes}",
     "tooltip-format-disconnected": "No connection",

@@ -87,7 +87,8 @@
     "format-ethernet": "   {bandwidthTotalBytes}",
     "format-disconnected": "睊",
     "tooltip-format-wifi": "IP: {ipaddr}\nNetwork: {essid}\nUplink: {bandwidthUpBytes}\nDownlink: {bandwidthDownBytes}",
-    "tooltip-format-ethernet": "IP: {ipaddr}\nNetwork: Ethernet\nUplink: {bandwidthUpBytes}\nDownlink: {bandwidthDownBytes}"
+    "tooltip-format-ethernet": "IP: {ipaddr}\nNetwork: Ethernet\nUplink: {bandwidthUpBytes}\nDownlink: {bandwidthDownBytes}",
+    "on-click": "ghostty -e nmtui"
   },
 
   "battery": {

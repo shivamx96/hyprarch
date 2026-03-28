@@ -129,13 +129,13 @@ HOST_DIR="$REPO_DIR/hosts/$HOST/hypr"
 if [ -d "$HOST_DIR" ]; then
     cp "$HOST_DIR/env.conf" "$CONFIG_DIR/hypr/env.conf"
     cp "$HOST_DIR/monitors.conf" "$CONFIG_DIR/hypr/"
+    cp "$HOST_DIR/hypridle.conf" "$CONFIG_DIR/hypr/hypridle.conf"
 else
     echo "Error: No host config found at $HOST_DIR"
     exit 1
 fi
 
 cp "$REPO_DIR/defaults/hypr/hyprlock.conf" "$CONFIG_DIR/hypr/hyprlock.conf"
-cp "$REPO_DIR/defaults/hypr/hypridle.conf" "$CONFIG_DIR/hypr/hypridle.conf"
 
 section "SYMLINKING CONFIGS"
 

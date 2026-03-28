@@ -99,10 +99,11 @@
   },
 
   "custom/gpu": {
-    "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | awk '{print $1}'",
-    "format": "󰾲  {}%",
+    "exec": "~/.local/share/hyprarch/shell/gpu-usage.sh",
+    "format": "󰾲  {text}%",
+    "tooltip": "{tooltip}",
+    "return-type": "json",
     "interval": 5,
-    "tooltip": false,
     "on-click": "ghostty -e nvtop"
   },
 

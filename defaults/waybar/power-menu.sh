@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-choice=$(printf "Lock\nSuspend\nShutdown\nReboot\nLogout" | fuzzel --dmenu --prompt "⏻ Power Menu")
+choice=$(printf "Lock\nSuspend\nShutdown\nReboot\nLogout" | fuzzel --dmenu --prompt "⏻  Power Menu  ")
 
 case "$choice" in
     Lock)

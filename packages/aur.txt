@@ -18,3 +18,4 @@ cliphist
 grim
 slurp
 polkit-gnome
+rose-pine-hyprcursor

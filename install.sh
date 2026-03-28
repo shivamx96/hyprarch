@@ -38,6 +38,12 @@ section() {
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 USER_HOME="/home/$SUDO_USER"
 
+# Grant temporary NOPASSWD to avoid repeated password prompts during install
+SUDOERS_TMP="/etc/sudoers.d/hyprarch-install"
+echo "$SUDO_USER ALL=(ALL) NOPASSWD: ALL" > "$SUDOERS_TMP"
+chmod 440 "$SUDOERS_TMP"
+trap 'rm -f "$SUDOERS_TMP"' EXIT
+
 DOTS_DIR="$USER_HOME/.local/share/hyprarch"
 CONFIG_DIR="$USER_HOME/.config"
 

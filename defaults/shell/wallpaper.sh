@@ -26,8 +26,9 @@ set_wallpaper() {
     # Set wallpaper with transition
     awww img "$wallpaper" --transition-type wipe --transition-duration 1
 
-    # Save current wallpaper
+    # Save current wallpaper path and symlink for hyprlock
     echo "$wallpaper" > "$CURRENT_WALLPAPER"
+    ln -sf "$wallpaper" "$HOME/.cache/hyprarch-current-wallpaper"
 }
 
 # Function to get random wallpaper

@@ -13,3 +13,5 @@ bruno
 zsh
 fzf
 zoxide
+wl-clipboard
+cliphist

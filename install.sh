@@ -79,6 +79,11 @@ echo "Setting up Bluetooth..."
 systemctl enable bluetooth.service
 systemctl start bluetooth.service || echo "Warning: Could not start bluetooth service (may need manual setup)"
 
+echo "Setting up Docker..."
+systemctl enable docker.service
+systemctl start docker.service || echo "Warning: Could not start docker service"
+usermod -aG docker "$SUDO_USER"
+
 section "CONFIGURING AUTO-LOGIN"
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf << AUTOLOGIN

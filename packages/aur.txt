@@ -25,3 +25,6 @@ xdg-user-dirs
 file-roller
 thunar-archive-plugin
 unzip
+alsa-utils
+alsa-ucm-conf
+alsa-plugins

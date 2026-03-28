@@ -78,17 +78,17 @@ pacman -Fy --noconfirm || echo "Warning: file database sync failed"
 echo "Installing base packages..."
 pacman -S --noconfirm --needed $(cat "$REPO_DIR/packages/base.txt") || echo "Warning: pacman failed"
 
-HOST_PKGS="$REPO_DIR/hosts/$HOST/packages.txt"
-if [ -f "$HOST_PKGS" ]; then
-    echo "Installing $HOST packages..."
-    pacman -S --noconfirm --needed $(cat "$HOST_PKGS") || echo "Warning: host package install failed"
-fi
-
 AUR_HELPER=$(command -v paru || command -v yay)
 if [ -n "$AUR_HELPER" ]; then
     echo "Installing AUR packages..."
     AUR_PKGS=$(cat "$REPO_DIR/packages/aur.txt" | tr '\n' ' ')
     sudo -u "$SUDO_USER" $AUR_HELPER -S --noconfirm --needed $AUR_PKGS || echo "Warning: AUR install failed"
+
+    HOST_PKGS="$REPO_DIR/hosts/$HOST/packages.txt"
+    if [ -f "$HOST_PKGS" ]; then
+        echo "Installing $HOST packages..."
+        sudo -u "$SUDO_USER" $AUR_HELPER -S --noconfirm --needed $(cat "$HOST_PKGS") || echo "Warning: host package install failed"
+    fi
 else
     echo "Error: No AUR helper available."
     exit 1

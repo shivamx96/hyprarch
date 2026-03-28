@@ -2,4 +2,3 @@ intel-media-driver
 libva-intel-driver
 vulkan-intel
 sof-firmware
-alsa-ucm-conf

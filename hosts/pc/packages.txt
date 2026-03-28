@@ -1,6 +1,7 @@
 linux-headers
 nvidia-open-dkms
 nvidia-utils
+nvtop
 libva-nvidia-driver
 vulkan-icd-loader
 egl-wayland

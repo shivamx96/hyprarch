@@ -53,6 +53,7 @@ window#waybar {
 #pulseaudio,
 #cpu,
 #memory,
+#custom-gpu,
 #custom-power,
 #battery {
     padding: 0 10px;
@@ -70,6 +71,7 @@ window#waybar {
 #pulseaudio:hover,
 #cpu:hover,
 #memory:hover,
+#custom-gpu:hover,
 #custom-power:hover,
 #battery:hover {
     background: alpha(@surface0, 0.6);
@@ -119,7 +121,7 @@ window#waybar {
 
 /* Audio */
 #pulseaudio {
-    color: @mauve;
+    color: @peach;
 }
 
 #pulseaudio.muted {
@@ -128,7 +130,7 @@ window#waybar {
 
 /* Bluetooth */
 #bluetooth {
-    color: @blue;
+    color: @lavender;
 }
 
 #bluetooth.disabled {
@@ -137,7 +139,7 @@ window#waybar {
 
 /* Network */
 #network {
-    color: @teal;
+    color: @lavender;
 }
 
 #network.disconnected {
@@ -151,7 +153,12 @@ window#waybar {
 
 /* Memory */
 #memory {
-    color: @pink;
+    color: @sky;
+}
+
+/* GPU */
+#custom-gpu {
+    color: @sky;
 }
 
 /* Battery */

@@ -15,6 +15,7 @@
     "bluetooth",
     "network",
     "cpu",
+    "custom/gpu",
     "memory",
     "battery",
     "custom/power"
@@ -95,6 +96,14 @@
     "interval": 5,
     "tooltip-format": "Used: {used}GB / {total}GB",
     "on-click": "ghostty -e btop"
+  },
+
+  "custom/gpu": {
+    "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | awk '{print $1}'",
+    "format": "󰾲  {}%",
+    "interval": 5,
+    "tooltip": false,
+    "on-click": "ghostty -e nvtop"
   },
 
   "battery": {

@@ -133,6 +133,8 @@ cp -rv "$REPO_DIR/defaults/hypr" "$DOTS_DIR/" || { echo "Failed to copy hypr"; e
 cp -rv "$REPO_DIR/defaults/waybar" "$DOTS_DIR/" || { echo "Failed to copy waybar"; exit 1; }
 cp -rv "$REPO_DIR/defaults/dunst" "$DOTS_DIR/" || { echo "Failed to copy dunst"; exit 1; }
 cp -rv "$REPO_DIR/defaults/ghostty" "$DOTS_DIR/" || { echo "Failed to copy ghostty"; exit 1; }
+cp -rv "$REPO_DIR/defaults/fuzzel" "$DOTS_DIR/" || { echo "Failed to copy fuzzel"; exit 1; }
+cp -rv "$REPO_DIR/defaults/xdg-desktop-portal" "$DOTS_DIR/" || { echo "Failed to copy xdg-desktop-portal"; exit 1; }
 cp -rv "$REPO_DIR/defaults/fontconfig" "$DOTS_DIR/" || { echo "Failed to copy fontconfig"; exit 1; }
 cp -rv "$REPO_DIR/defaults/shell" "$DOTS_DIR/" || { echo "Failed to copy shell"; exit 1; }
 cp -rv "$REPO_DIR/defaults/wallpapers" "$DOTS_DIR/" || { echo "Failed to copy wallpapers"; exit 1; }
@@ -175,6 +177,16 @@ ln -s "$DOTS_DIR/waybar/power-menu.sh" "$CONFIG_DIR/waybar/power-menu.sh"
 # Dunst
 rm -f "$CONFIG_DIR/dunst/dunstrc"
 ln -s "$DOTS_DIR/dunst/dunstrc" "$CONFIG_DIR/dunst/dunstrc"
+
+# XDG Desktop Portal
+mkdir -p "$CONFIG_DIR/xdg-desktop-portal"
+rm -f "$CONFIG_DIR/xdg-desktop-portal/hyprland-portals.conf"
+ln -s "$DOTS_DIR/xdg-desktop-portal/hyprland-portals.conf" "$CONFIG_DIR/xdg-desktop-portal/hyprland-portals.conf"
+
+# Fuzzel
+mkdir -p "$CONFIG_DIR/fuzzel"
+rm -f "$CONFIG_DIR/fuzzel/fuzzel.ini"
+ln -s "$DOTS_DIR/fuzzel/fuzzel.ini" "$CONFIG_DIR/fuzzel/fuzzel.ini"
 
 # Ghostty
 mkdir -p "$CONFIG_DIR/ghostty"

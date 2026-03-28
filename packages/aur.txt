@@ -5,5 +5,8 @@ zen-browser-bin
 helium-browser-bin
 slack-desktop
 tailscale
+docker
 claude-code
 lmstudio-bin
+intellij-idea-ultimate-edition
+bruno

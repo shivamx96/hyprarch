@@ -107,6 +107,9 @@ systemctl enable docker.service
 systemctl start docker.service || echo "Warning: Could not start docker service"
 usermod -aG docker "$SUDO_USER"
 
+echo "Creating user directories..."
+sudo -u "$SUDO_USER" xdg-user-dirs-update
+
 section "CONFIGURING AUTO-LOGIN"
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf << AUTOLOGIN

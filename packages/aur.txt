@@ -21,3 +21,4 @@ polkit-gnome
 rose-pine-hyprcursor
 lazygit
 lazydocker
+xdg-user-dirs

@@ -208,6 +208,15 @@ if [ "$HOST" = "pc" ]; then
     fi
 fi
 
+# Generate SSH key for GitHub if not already present
+SSH_KEY="$USER_HOME/.ssh/id_ed25519"
+if [ ! -f "$SSH_KEY" ]; then
+    read -p "Enter your email for GitHub SSH key: " GIT_EMAIL
+    echo "Generating SSH key for GitHub..."
+    sudo -u "$SUDO_USER" mkdir -p "$USER_HOME/.ssh"
+    sudo -u "$SUDO_USER" ssh-keygen -t ed25519 -C "$GIT_EMAIL" -f "$SSH_KEY" -N ""
+fi
+
 echo ""
 echo "✓ Installation complete!"
 echo "✓ Host: $HOST"
@@ -218,4 +227,11 @@ if [ "$HOST" = "pc" ]; then
     echo "✓ NVIDIA DRM modeset and early KMS configured"
 fi
 echo ""
+if [ -f "$SSH_KEY.pub" ]; then
+    echo "── GitHub SSH Key ──"
+    echo "Add this to https://github.com/settings/ssh/new"
+    echo ""
+    cat "$SSH_KEY.pub"
+    echo ""
+fi
 echo "Reboot to launch into Hyprland."

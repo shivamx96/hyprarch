@@ -1,10 +1,25 @@
 #!/usr/bin/env bash
 set -e
 
-# Must run as root
+# If not root, show banner and re-exec with sudo
 if [ "$EUID" -ne 0 ]; then
-    echo "Run with sudo: sudo ./install.sh"
-    exit 1
+    echo ""
+    echo "#############################################################################"
+    echo "###"
+    echo "###   hyprarch — Arch + Hyprland bootstrap"
+    echo "###"
+    echo "###   This will install and configure:"
+    echo "###     - Hyprland (window manager)"
+    echo "###     - Waybar, Dunst, Ghostty, Fuzzel"
+    echo "###     - PipeWire audio, Bluetooth, NetworkManager"
+    echo "###     - ZSH with Powerlevel10k"
+    echo "###     - Host-specific GPU drivers (auto-detected)"
+    echo "###"
+    echo "###   Configs: ~/.config    Defaults: ~/.local/share/hyprarch"
+    echo "###"
+    echo "#############################################################################"
+    echo ""
+    exec sudo "$0" "$@"
 fi
 
 if [ -z "$SUDO_USER" ]; then

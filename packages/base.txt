@@ -29,3 +29,4 @@ noto-fonts
 noto-fonts-emoji
 base-devel
 git
+openssh

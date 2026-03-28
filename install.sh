@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# If not root, show banner and re-exec with sudo
+# If not root: show banner and elevate. Block running with sudo directly.
 if [ "$EUID" -ne 0 ]; then
     echo ""
     echo "#############################################################################"
@@ -20,10 +20,8 @@ if [ "$EUID" -ne 0 ]; then
     echo "#############################################################################"
     echo ""
     exec sudo "$0" "$@"
-fi
-
-if [ -z "$SUDO_USER" ]; then
-    echo "Run with sudo, not as root directly: sudo ./install.sh"
+elif [ -z "$SUDO_USER" ]; then
+    echo "Do not run as root directly. Just run: ./install.sh"
     exit 1
 fi
 

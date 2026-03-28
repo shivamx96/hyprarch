@@ -22,3 +22,6 @@ rose-pine-hyprcursor
 lazygit
 lazydocker
 xdg-user-dirs
+file-roller
+thunar-archive-plugin
+unzip

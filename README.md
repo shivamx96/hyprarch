@@ -41,6 +41,14 @@ The script will:
 - `Super + 1-9/0` – switch workspaces (1-10)
 - `Super + Shift + 1-9/0` – move window to workspace
 
+### Screenshots
+- `Print` – full screen screenshot to clipboard
+- `Super + S` – full screen screenshot to clipboard
+- `Super + Shift + S` – select region screenshot to clipboard
+
+### Clipboard
+- `Ctrl + Shift + V` – clipboard history (pick from past copies)
+
 ### Multimedia
 - `Fn + Volume Up/Down` – adjust volume (with OSD)
 - `Fn + Mute` – toggle mute

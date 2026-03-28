@@ -10,3 +10,6 @@ claude-code
 lmstudio-bin
 intellij-idea-ultimate-edition
 bruno
+zsh
+fzf
+zoxide

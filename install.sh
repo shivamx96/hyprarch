@@ -148,15 +148,19 @@ mkdir -p "$CONFIG_DIR/fontconfig/conf.d"
 rm -f "$CONFIG_DIR/fontconfig/conf.d/local.conf"
 ln -s "$DOTS_DIR/fontconfig/local.conf" "$CONFIG_DIR/fontconfig/conf.d/local.conf"
 
-# Source hyprarch profile from user's shell login config
-PROFILE_SOURCE="source $DOTS_DIR/shell/profile"
-# Detect user's shell and add to the right profile
-USER_SHELL=$(getent passwd "$SUDO_USER" | cut -d: -f7)
-if [[ "$USER_SHELL" == */zsh ]]; then
-    SHELL_RC="$USER_HOME/.zprofile"
-else
-    SHELL_RC="$USER_HOME/.bash_profile"
+# Set zsh as default shell
+echo "Setting zsh as default shell..."
+chsh -s /usr/bin/zsh "$SUDO_USER"
+
+# Deploy default .zshrc if user doesn't have one
+if [ ! -f "$USER_HOME/.zshrc" ]; then
+    cp "$DOTS_DIR/shell/.zshrc" "$USER_HOME/.zshrc"
+    chown "$SUDO_USER:$SUDO_USER" "$USER_HOME/.zshrc"
 fi
+
+# Source hyprarch profile from zprofile
+PROFILE_SOURCE="source $DOTS_DIR/shell/profile"
+SHELL_RC="$USER_HOME/.zprofile"
 touch "$SHELL_RC"
 if ! grep -qF "$PROFILE_SOURCE" "$SHELL_RC"; then
     echo "$PROFILE_SOURCE" >> "$SHELL_RC"

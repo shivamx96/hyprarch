@@ -22,6 +22,7 @@ pavucontrol
 bluez
 bluez-utils
 blueman
+networkmanager
 awww
 ttf-roboto
 ttf-jetbrains-mono

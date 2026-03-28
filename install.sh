@@ -79,6 +79,10 @@ echo "Setting up Bluetooth..."
 systemctl enable bluetooth.service
 systemctl start bluetooth.service || echo "Warning: Could not start bluetooth service (may need manual setup)"
 
+echo "Setting up NetworkManager..."
+systemctl enable NetworkManager.service
+systemctl start NetworkManager.service || echo "Warning: Could not start NetworkManager service"
+
 echo "Setting up Docker..."
 systemctl enable docker.service
 systemctl start docker.service || echo "Warning: Could not start docker service"

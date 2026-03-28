@@ -73,3 +73,7 @@ alias update-hyprarch='cd ~/hyprarch && git pull && sudo ./install.sh'
 
 # Updating PATH with Zed
 export PATH=$HOME/.local/bin:$PATH
+
+#############################################################################
+### ANY CUSTOM CONFIGS GO BELOW THIS LINE
+#############################################################################

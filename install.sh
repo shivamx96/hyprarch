@@ -163,10 +163,22 @@ ln -s "$DOTS_DIR/fontconfig/local.conf" "$CONFIG_DIR/fontconfig/conf.d/local.con
 section "SETTING UP ZSH"
 chsh -s /usr/bin/zsh "$SUDO_USER"
 
-if [ ! -f "$USER_HOME/.zshrc" ]; then
-    cp "$DOTS_DIR/shell/.zshrc" "$USER_HOME/.zshrc"
-    chown "$SUDO_USER:$SUDO_USER" "$USER_HOME/.zshrc"
+ZSHRC="$USER_HOME/.zshrc"
+MARKER="### ANY CUSTOM CONFIGS GO BELOW THIS LINE"
+if [ ! -f "$ZSHRC" ]; then
+    cp "$DOTS_DIR/shell/.zshrc" "$ZSHRC"
+else
+    # Preserve everything below the marker, replace everything above with latest default
+    CUSTOM_CONFIGS=""
+    if grep -qF "$MARKER" "$ZSHRC"; then
+        CUSTOM_CONFIGS=$(sed "1,/$MARKER/d" "$ZSHRC")
+    fi
+    cp "$DOTS_DIR/shell/.zshrc" "$ZSHRC"
+    if [ -n "$CUSTOM_CONFIGS" ]; then
+        echo "$CUSTOM_CONFIGS" >> "$ZSHRC"
+    fi
 fi
+chown "$SUDO_USER:$SUDO_USER" "$ZSHRC"
 
 PROFILE_SOURCE="source $DOTS_DIR/shell/profile"
 SHELL_RC="$USER_HOME/.zprofile"

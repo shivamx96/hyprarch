@@ -13,34 +13,28 @@ if command -v nvidia-smi &>/dev/null; then
     fi
 fi
 
-# Intel GPU
-if command -v intel_gpu_top &>/dev/null; then
-    data=$(intel_gpu_top -J -s 500 -o - 2>/dev/null | head -c 4096)
-    if [ -n "$data" ]; then
-        # Parse the first JSON period entry
-        usage=$(echo "$data" | python3 -c "
-import sys, json
-raw = sys.stdin.read()
-# intel_gpu_top outputs JSON array periods; grab first complete one
-start = raw.find('{', raw.find('\"period\"'))
-end = raw.find('}', raw.rfind('\"rc6\"')) + 1
-if start >= 0 and end > start:
-    obj = json.loads(raw[start:end])
-    engines = obj.get('engines', {})
-    # Sum all engine busy percentages, use max as overall usage
-    busy = max((e.get('busy', 0) for e in engines.values()), default=0)
-    freq_req = obj.get('frequency', {}).get('requested', 0)
-    freq_act = obj.get('frequency', {}).get('actual', 0)
-    rc6 = obj.get('rc6', {}).get('value', 0)
-    print(f'{busy:.0f}|{freq_act:.0f}|{rc6:.0f}')
-else:
-    print('0|0|0')
-" 2>/dev/null)
-        IFS='|' read -r busy freq rc6 <<< "$usage"
-        printf '{"text":"%s","tooltip":"GPU: %s%%\\nFreq: %s MHz\\nRC6 (idle): %s%%"}' \
-            "$busy" "$busy" "$freq" "$rc6"
+# Intel GPU — read frequency from sysfs (no root needed)
+for card in /sys/class/drm/card*/; do
+    gt_dir="$card/gt/gt0"
+    [ -d "$gt_dir" ] || gt_dir="$card"
+
+    freq_file="$gt_dir/rps_cur_freq_mhz"
+    max_file="$gt_dir/rps_max_freq_mhz"
+
+    if [ -r "$freq_file" ] && [ -r "$max_file" ]; then
+        freq=$(cat "$freq_file")
+        max_freq=$(cat "$max_file")
+        usage=$(awk "BEGIN {v=100*$freq/$max_freq; printf \"%.0f\", (v>100?100:v)}")
+
+        tooltip="GPU: ${usage}%\\nFreq: ${freq}/${max_freq} MHz"
+
+        # Try reading RC6 (idle residency)
+        rc6_file="$gt_dir/rc6_residency_ms"
+        [ -r "$rc6_file" ] && tooltip="${tooltip}\\nRC6: $(cat "$rc6_file") ms"
+
+        printf '{"text":"%s","tooltip":"%s"}' "$usage" "$tooltip"
         exit 0
     fi
-fi
+done
 
 echo '{"text":"N/A","tooltip":"GPU not available"}'

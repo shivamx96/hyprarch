@@ -110,6 +110,7 @@ echo "Setting up Docker..."
 systemctl enable docker.service
 systemctl start docker.service || echo "Warning: Could not start docker service"
 usermod -aG docker "$SUDO_USER"
+usermod -aG render,video "$SUDO_USER"
 
 echo "Creating user directories..."
 sudo -u "$SUDO_USER" xdg-user-dirs-update

@@ -71,6 +71,10 @@ fi
 
 section "INSTALLING PACKAGES"
 
+echo "Syncing package databases..."
+pacman -Syy --noconfirm
+pacman -Fy --noconfirm || echo "Warning: file database sync failed"
+
 echo "Installing base packages..."
 pacman -S --noconfirm --needed $(cat "$REPO_DIR/packages/base.txt") || echo "Warning: pacman failed"
 

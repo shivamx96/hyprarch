@@ -14,7 +14,7 @@
     "pulseaudio",
     "bluetooth",
     "network",
-    "cpu",
+    "custom/cpu",
     "custom/gpu",
     "memory",
     "battery",
@@ -85,8 +85,11 @@
     "on-click": "ghostty -e nmtui"
   },
 
-  "cpu": {
-    "format": "  {usage}%",
+  "custom/cpu": {
+    "exec": "~/.local/share/hyprarch/shell/cpu-usage.sh",
+    "format": "  {text}%",
+    "tooltip": "{tooltip}",
+    "return-type": "json",
     "interval": 5,
     "on-click": "ghostty -e btop"
   },

@@ -51,7 +51,7 @@ window#waybar {
 #bluetooth,
 #backlight,
 #pulseaudio,
-#cpu,
+#custom-cpu,
 #memory,
 #custom-gpu,
 #custom-power,
@@ -69,7 +69,7 @@ window#waybar {
 #bluetooth:hover,
 #backlight:hover,
 #pulseaudio:hover,
-#cpu:hover,
+#custom-cpu:hover,
 #memory:hover,
 #custom-gpu:hover,
 #custom-power:hover,
@@ -147,7 +147,7 @@ window#waybar {
 }
 
 /* CPU */
-#cpu {
+#custom-cpu {
     color: @sky;
 }
 

@@ -30,3 +30,4 @@ noto-fonts-emoji
 base-devel
 git
 openssh
+less

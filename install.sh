@@ -122,13 +122,17 @@ usermod -aG render,video "$SUDO_USER"
 echo "Creating user directories..."
 sudo -u "$SUDO_USER" xdg-user-dirs-update
 
-section "CONFIGURING AUTO-LOGIN"
-mkdir -p /etc/systemd/system/getty@tty1.service.d
-cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf << AUTOLOGIN
-[Service]
-ExecStart=
-ExecStart=-/sbin/agetty -o '-p -f -- \\\\u' --noclear --autologin $SUDO_USER %I \$TERM
-AUTOLOGIN
+section "CONFIGURING SDDM AUTO-LOGIN"
+mkdir -p /etc/sddm.conf.d
+cat > /etc/sddm.conf.d/autologin.conf << SDDM
+[Autologin]
+User=$SUDO_USER
+Session=hyprland-uwsm
+SDDM
+systemctl enable sddm.service
+
+# Remove TTY autologin if present (replaced by SDDM)
+rm -f /etc/systemd/system/getty@tty1.service.d/autologin.conf
 
 section "COPYING DEFAULTS"
 
@@ -274,6 +278,36 @@ if [ "$HOST" = "pc" ]; then
             mkinitcpio -P
         fi
     fi
+fi
+
+section "CONFIGURING PLYMOUTH"
+
+echo "Setting up Plymouth boot splash..."
+if command -v plymouth-set-default-theme &> /dev/null; then
+    # Install custom HyprArch theme
+    cp -rv "$REPO_DIR/defaults/plymouth/hyprarch" /usr/share/plymouth/themes/
+    plymouth-set-default-theme -R hyprarch
+
+    # Add plymouth hook to mkinitcpio if not present
+    if [ -f /etc/mkinitcpio.conf ]; then
+        if ! grep "^HOOKS=" /etc/mkinitcpio.conf | grep -q "plymouth"; then
+            sed -i 's/^HOOKS=(\(.*\)udev\(.*\))/HOOKS=(\1udev plymouth\2)/' /etc/mkinitcpio.conf
+            echo "Rebuilding initramfs with plymouth..."
+            mkinitcpio -P
+        fi
+    fi
+
+    # Add splash, quiet, and loglevel to systemd-boot kernel cmdline
+    BOOT_ENTRIES="/boot/loader/entries"
+    if [ -d "$BOOT_ENTRIES" ]; then
+        for entry in "$BOOT_ENTRIES"/*.conf; do
+            if ! grep -q "splash" "$entry"; then
+                sed -i '/^options/ s/$/ quiet loglevel=3 splash vt.default_red=30 vt.default_grn=30 vt.default_blu=46/' "$entry"
+                echo "Updated boot entry: $entry"
+            fi
+        done
+    fi
+
 fi
 
 section "GENERATING SSH KEY"

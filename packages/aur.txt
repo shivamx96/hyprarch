@@ -30,3 +30,5 @@ alsa-utils
 alsa-ucm-conf
 alsa-plugins
 nvm
+plymouth
+sddm

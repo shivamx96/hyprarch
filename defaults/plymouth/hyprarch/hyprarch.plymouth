@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=HyprArch
+Description=HyprArch boot splash with Catppuccin Mocha background
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/hyprarch
+ScriptFile=/usr/share/plymouth/themes/hyprarch/hyprarch.script

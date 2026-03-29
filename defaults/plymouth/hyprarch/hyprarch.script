@@ -1,0 +1,75 @@
+// HyprArch Plymouth Theme
+// Catppuccin Mocha background, centered logo, smooth progress bar
+
+// --- Background ---
+Window.SetBackgroundTopColor(0.118, 0.118, 0.180);
+Window.SetBackgroundBottomColor(0.118, 0.118, 0.180);
+
+// --- Logo ---
+logo = Image("logo.png");
+logo_sprite = Sprite(logo);
+logo_sprite.SetX(Window.GetWidth() / 2 - logo.GetWidth() / 2);
+logo_sprite.SetY(Window.GetHeight() / 2 - logo.GetHeight() / 2);
+logo_sprite.SetOpacity(1);
+
+// --- Progress bar ---
+progress_box = Image("progress_box.png");
+progress_bar = Image("progress_bar.png");
+
+progress_box_sprite = Sprite(progress_box);
+progress_box_sprite.SetX(Window.GetWidth() / 2 - progress_box.GetWidth() / 2);
+progress_box_sprite.SetY(Window.GetHeight() / 2 + logo.GetHeight() / 2 + 40);
+progress_box_sprite.SetOpacity(1);
+
+progress_bar_sprite = Sprite();
+progress_bar_sprite.SetX(Window.GetWidth() / 2 - progress_bar.GetWidth() / 2);
+progress_bar_sprite.SetY(Window.GetHeight() / 2 + logo.GetHeight() / 2 + 40);
+progress_bar_sprite.SetOpacity(1);
+
+// --- Fake progress animation ---
+global.fake_progress = 0;
+global.fake_progress_limit = 0.7;
+global.fake_progress_duration = 15;
+global.max_progress = 0;
+global.frame = 0;
+
+fun refresh_callback() {
+    global.frame++;
+
+    // Fake progress: ease-out quadratic over fake_progress_duration seconds (~50 fps)
+    time_ratio = global.frame / (global.fake_progress_duration * 50);
+    if (time_ratio > 1) time_ratio = 1;
+    eased = 1 - ((1 - time_ratio) * (1 - time_ratio));
+    global.fake_progress = eased * global.fake_progress_limit;
+
+    // Use whichever is higher: fake or real progress
+    progress = global.max_progress;
+    if (global.fake_progress > progress)
+        progress = global.fake_progress;
+
+    // Never go backwards
+    if (progress > global.max_progress)
+        global.max_progress = progress;
+
+    // Crop the progress bar image to show current progress
+    bar_width = progress_bar.GetWidth() * global.max_progress;
+    if (bar_width > 0) {
+        cropped = progress_bar.Scale(bar_width, progress_bar.GetHeight());
+        progress_bar_sprite.SetImage(cropped);
+    }
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+fun boot_progress_callback(duration, progress) {
+    if (progress > global.max_progress)
+        global.max_progress = progress;
+}
+
+Plymouth.SetBootProgressFunction(boot_progress_callback);
+
+fun quit_callback() {
+    logo_sprite.SetOpacity(1);
+}
+
+Plymouth.SetQuitFunction(quit_callback);

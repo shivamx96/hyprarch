@@ -54,8 +54,8 @@
     "format": "{}",
     "return-type": "json",
     "interval": 5,
-    "on-scroll-up": "~/.local/share/hyprarch/shell/brightness.sh up 1",
-    "on-scroll-down": "~/.local/share/hyprarch/shell/brightness.sh down 1"
+    "on-scroll-up": "~/.local/share/hyprarch/shell/brightness.sh up 2",
+    "on-scroll-down": "~/.local/share/hyprarch/shell/brightness.sh down 2"
   },
 
   "pulseaudio": {

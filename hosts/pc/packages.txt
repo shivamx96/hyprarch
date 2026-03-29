@@ -7,6 +7,7 @@ vulkan-icd-loader
 egl-wayland
 hyprsunset
 socat
+jq
 cuda
 cmake
 python-huggingface-hub

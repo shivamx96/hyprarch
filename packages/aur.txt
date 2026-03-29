@@ -4,6 +4,7 @@ ttf-jetbrains-mono-nerd
 zen-browser-bin
 helium-browser-bin
 slack-desktop
+obsidian
 tailscale
 docker
 claude-code

@@ -15,4 +15,8 @@ steam
 lib32-nvidia-utils
 lib32-vulkan-icd-loader
 gamemode
+lib32-gamemode
+gamescope
 mangohud
+proton-ge-custom-bin
+protonup-qt

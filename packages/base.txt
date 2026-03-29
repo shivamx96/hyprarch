@@ -33,3 +33,5 @@ base-devel
 git
 openssh
 less
+uv
+nvm

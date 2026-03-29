@@ -71,6 +71,13 @@ fi
 
 section "INSTALLING PACKAGES"
 
+echo "Enabling multilib repository..."
+if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
+    echo -e "\n[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+elif grep -A1 "^\[multilib\]" /etc/pacman.conf | grep -q "^#Include"; then
+    sed -i '/^\[multilib\]/{n;s/^#Include/Include/}' /etc/pacman.conf
+fi
+
 echo "Running full system upgrade..."
 pacman -Syu --noconfirm
 pacman -Fy --noconfirm || echo "Warning: file database sync failed"

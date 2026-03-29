@@ -11,3 +11,8 @@ jq
 cuda
 cmake
 python-huggingface-hub
+steam
+lib32-nvidia-utils
+lib32-vulkan-icd-loader
+gamemode
+mangohud

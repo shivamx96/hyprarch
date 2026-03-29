@@ -7,7 +7,7 @@
   "margin-right": 10,
   "spacing": 0,
   "reload_style_on_change": true,
-  "modules-left": ["custom/arch", "hyprland/workspaces", "hyprland/window"],
+  "modules-left": ["custom/arch", "hyprland/workspaces", "custom/window"],
   "modules-center": ["clock"],
   "modules-right": [
     "custom/brightness",
@@ -32,15 +32,11 @@
     "persistent-workspaces": {}
   },
 
-  "hyprland/window": {
+  "custom/window": {
+    "exec": "~/.local/share/hyprarch/shell/active-window.sh",
+    "return-type": "json",
     "format": "{}",
-    "max-length": 40,
-    "rewrite": {
-      "(.*) — Zen Browser": "󰈹  $1",
-      "(.*) - Mozilla Firefox": "󰈹  $1",
-      "(.*) - Zed": "󰘦 $1"
-    },
-    "separate-outputs": false
+    "tooltip": true
   },
 
   "clock": {

@@ -6,5 +6,7 @@ libva-nvidia-driver
 vulkan-icd-loader
 egl-wayland
 hyprsunset
+socat
 cuda
 cmake
+python-huggingface-hub

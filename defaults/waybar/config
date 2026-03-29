@@ -10,7 +10,7 @@
   "modules-left": ["custom/arch", "hyprland/workspaces", "hyprland/window"],
   "modules-center": ["clock"],
   "modules-right": [
-    "backlight",
+    "custom/brightness",
     "pulseaudio",
     "bluetooth",
     "network",
@@ -49,11 +49,13 @@
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
 
-  "backlight": {
-    "format": "{icon}  {percent}%",
-    "format-icons": ["󰃞", "󰃟", "󰃠"],
-    "on-scroll-up": "brightnessctl set 1%-",
-    "on-scroll-down": "brightnessctl set 1%+"
+  "custom/brightness": {
+    "exec": "~/.local/share/hyprarch/shell/brightness-module.sh",
+    "format": "{}",
+    "return-type": "json",
+    "interval": 5,
+    "on-scroll-up": "~/.local/share/hyprarch/shell/brightness.sh up 1",
+    "on-scroll-down": "~/.local/share/hyprarch/shell/brightness.sh down 1"
   },
 
   "pulseaudio": {

@@ -71,8 +71,8 @@ fi
 
 section "INSTALLING PACKAGES"
 
-echo "Syncing package databases..."
-pacman -Syy --noconfirm
+echo "Running full system upgrade..."
+pacman -Syu --noconfirm
 pacman -Fy --noconfirm || echo "Warning: file database sync failed"
 
 echo "Installing base packages..."

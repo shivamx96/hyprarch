@@ -23,19 +23,24 @@ The script will:
 
 ## Keybindings
 
+### System
+- `Super + L` – lock screen
+- `Super + D` – toggle light/dark theme
+- `Super + M` – exit Hyprland
+
 ### Applications
 - `Super + Return` – terminal (ghostty)
 - `Super + B` – web browser (Zen)
 - `Super + Shift + B` – Bluetooth manager
 - `Super + F` – file manager (Thunar)
-- `Super + Space` – app launcher (Fuzzel)
-- `Super + L` – lock screen
+- `Super + Space` / `Super + R` – app launcher (Fuzzel)
 
 ### Window Management
 - `Super + Arrow Keys` – focus windows
 - `Super + Q` – close window
 - `Super + V` – toggle floating
-- `Super + F` – fullscreen
+- `Super + J` – toggle split direction
+- `Super + P` – pseudo-tile
 
 ### Workspaces
 - `Super + 1-9/0` – switch workspaces (1-10)
@@ -47,7 +52,7 @@ The script will:
 - `Super + Shift + S` – select region screenshot to clipboard
 
 ### Clipboard
-- `Ctrl + Shift + V` – clipboard history (pick from past copies)
+- `Super + Shift + V` – clipboard history (pick from past copies)
 
 ### Multimedia
 - `Fn + Volume Up/Down` – adjust volume (with OSD)

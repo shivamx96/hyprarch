@@ -33,7 +33,7 @@ The script will:
 - `Super + B` – web browser (Zen)
 - `Super + Shift + B` – Bluetooth manager
 - `Super + F` – file manager (Thunar)
-- `Super + Space` / `Super + R` – app launcher (Fuzzel)
+- `Super + Space` – app launcher (Fuzzel)
 
 ### Window Management
 - `Super + Arrow Keys` – focus windows

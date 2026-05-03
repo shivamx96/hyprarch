@@ -257,8 +257,14 @@ if [ "$HOST" = "pc" ]; then
         fi
     done
 
+    RUNNING_KERNEL=$(uname -r)
     if command -v dkms &> /dev/null; then
-        dkms autoinstall
+        if [ -d "/usr/lib/modules/$RUNNING_KERNEL/build" ]; then
+            dkms autoinstall
+        else
+            echo "Warning: Headers for running kernel $RUNNING_KERNEL not found (kernel was likely upgraded)."
+            echo "DKMS modules will build automatically on next boot."
+        fi
     fi
 
     NVIDIA_MODULES="nvidia nvidia_modeset nvidia_uvm nvidia_drm"

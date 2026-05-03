@@ -34,3 +34,4 @@ git
 openssh
 less
 uv
+linux-headers

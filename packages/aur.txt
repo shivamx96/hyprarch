@@ -7,7 +7,9 @@ slack-desktop
 obsidian
 tailscale
 docker
+docker-compose
 claude-code
+openai-codex
 lmstudio-bin
 intellij-idea-ultimate-edition
 bruno
@@ -32,3 +34,4 @@ alsa-plugins
 nvm
 plymouth
 sddm
+yubikey-manager

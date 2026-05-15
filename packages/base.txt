@@ -35,3 +35,4 @@ openssh
 less
 uv
 linux-headers
+go

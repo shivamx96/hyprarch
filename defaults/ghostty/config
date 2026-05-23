@@ -4,8 +4,12 @@ font-size = 11
 cursor-style = block
 window-padding-x = 8
 window-padding-y = 8
+window-decoration = none
+shell-integration = zsh
+confirm-close-surface = true
+mouse-hide-while-typing = true
 
 keybind = alt+left=esc:b
 keybind = alt+right=esc:f
-keybind = super+left=text:\x01
-keybind = super+right=text:\x05
+keybind = home=text:\x01
+keybind = end=text:\x05

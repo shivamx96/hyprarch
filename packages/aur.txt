@@ -35,3 +35,4 @@ nvm
 plymouth
 sddm
 yubikey-manager
+localsend-bin

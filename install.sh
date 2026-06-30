@@ -149,6 +149,9 @@ cp -rv "$REPO_DIR/defaults/fuzzel" "$DOTS_DIR/" || { echo "Failed to copy fuzzel
 cp -rv "$REPO_DIR/defaults/xdg-desktop-portal" "$DOTS_DIR/" || { echo "Failed to copy xdg-desktop-portal"; exit 1; }
 cp -rv "$REPO_DIR/defaults/fontconfig" "$DOTS_DIR/" || { echo "Failed to copy fontconfig"; exit 1; }
 cp -rv "$REPO_DIR/defaults/shell" "$DOTS_DIR/" || { echo "Failed to copy shell"; exit 1; }
+
+# Mirror wallpapers exactly so removals in the repo propagate (cp alone never deletes stale files)
+rm -rf "$DOTS_DIR/wallpapers"
 cp -rv "$REPO_DIR/defaults/wallpapers" "$DOTS_DIR/" || { echo "Failed to copy wallpapers"; exit 1; }
 
 chmod +x "$DOTS_DIR/shell"/*.sh
